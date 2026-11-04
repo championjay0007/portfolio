@@ -595,16 +595,16 @@ if (canvas && room) {
         accent: "#c5a8ff"
       },
       services: {
-        title: "SKILLS &\nSOLUTIONS.",
+        title: "WHAT I DO.",
         kicker: "03  /  THE RIGHT EXPERTISE FOR YOUR NEXT MOVE",
         lines: [
-          "Frontend: HTML · CSS · JavaScript",
-          "Backend: PHP · Laravel · Python · Django",
-          "Also: Bootstrap · MySQL · WordPress",
-          "UI/UX · SaaS · AI · Automation",
-          "Websites · custom software · e-commerce",
-          "Digital products shaped around your goals.",
-          "Have a project in mind? Let's talk."
+          "Custom websites and web applications.",
+          "Business software, SaaS and automation.",
+          "E-commerce, WordPress and UI/UX design.",
+          "Laravel, PHP, Python and Django.",
+          "SEO, digital strategy and consulting.",
+          "Business plans and project proposals.",
+          "Thoughtful digital solutions, built for you."
         ],
         accent: "#9cbcff"
       },
@@ -672,105 +672,251 @@ if (canvas && room) {
         const font = await new FontLoader().loadAsync(
           "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/fonts/helvetiker_regular.typeface.json"
         );
-        const engraving = new THREE.Group();
-        engraving.position.set(-7.28, 4.2, 6.3);
-        engraving.rotation.y = Math.PI / 2;
-        roomShell.add(engraving);
+        const wall = new THREE.Group();
+        wall.position.set(-7.28, 4.2, 6.3);
+        wall.rotation.y = Math.PI / 2;
+        roomShell.add(wall);
 
-        const plaque = new THREE.Mesh(
-          new THREE.BoxGeometry(6.08, 3.78, 0.12),
-          new THREE.MeshStandardMaterial({ color: 0x111522, roughness: 0.48, metalness: 0.38 })
-        );
-        plaque.position.z = -0.01;
-        plaque.castShadow = true;
-        plaque.receiveShadow = true;
-        engraving.add(plaque);
-
-        const borderMaterial = new THREE.MeshStandardMaterial({
+        const ownedMaterials = [];
+        const makeMaterial = (options) => {
+          const material = new THREE.MeshStandardMaterial(options);
+          ownedMaterials.push(material);
+          return material;
+        };
+        const plaqueMaterial = makeMaterial({ color: 0x111522, roughness: 0.48, metalness: 0.38 });
+        const tileMaterial = makeMaterial({ color: 0x191e2d, roughness: 0.42, metalness: 0.46 });
+        const edgeMaterial = makeMaterial({
           color: 0x788eff,
           roughness: 0.3,
           metalness: 0.62,
           emissive: 0x18244a,
           emissiveIntensity: 0.35
         });
-        const edge = 0.025;
-        const borderParts = [
-          [[5.86, edge, edge], [0, 1.81, 0.058]],
-          [[5.86, edge, edge], [0, -1.81, 0.058]],
-          [[edge, 3.62, edge], [-2.92, 0, 0.058]],
-          [[edge, 3.62, edge], [2.92, 0, 0.058]]
-        ];
-        borderParts.forEach(([size, position]) => {
-          const bar = new THREE.Mesh(new THREE.BoxGeometry(...size), borderMaterial);
-          bar.position.set(...position);
-          engraving.add(bar);
+        const silverMaterial = makeMaterial({
+          color: 0xe7e8f3,
+          roughness: 0.46,
+          metalness: 0.18,
+          emissive: 0x383c5c,
+          emissiveIntensity: 0.48
         });
-
-        const textMaterial = new THREE.MeshStandardMaterial({
-          color: 0xd8d9e5,
-          roughness: 0.32,
-          metalness: 0.68
+        const pearlMaterial = makeMaterial({
+          color: 0xd1ddff,
+          roughness: 0.44,
+          metalness: 0.16,
+          emissive: 0x3e5085,
+          emissiveIntensity: 0.52
         });
-        const accentMaterial = new THREE.MeshStandardMaterial({
+        const iconAccentMaterial = makeMaterial({
           color: 0xa9bbff,
-          roughness: 0.28,
-          metalness: 0.62,
-          emissive: 0x252f63,
-          emissiveIntensity: 0.28
+          roughness: 0.38,
+          metalness: 0.2,
+          emissive: 0x303f83,
+          emissiveIntensity: 0.58
         });
 
-        function addInscribedLine(text, y, size, material, options = {}) {
+        const plaque = new THREE.Mesh(new THREE.BoxGeometry(6.08, 3.78, 0.12), plaqueMaterial);
+        plaque.position.z = -0.01;
+        plaque.castShadow = true;
+        plaque.receiveShadow = true;
+        wall.add(plaque);
+
+        const frameBars = [
+          [[5.86, 0.025, 0.025], [0, 1.81, 0.058]],
+          [[5.86, 0.025, 0.025], [0, -1.81, 0.058]],
+          [[0.025, 3.62, 0.025], [-2.92, 0, 0.058]],
+          [[0.025, 3.62, 0.025], [2.92, 0, 0.058]]
+        ];
+        frameBars.forEach(([size, position]) => {
+          const bar = new THREE.Mesh(new THREE.BoxGeometry(...size), edgeMaterial);
+          bar.position.set(...position);
+          wall.add(bar);
+        });
+
+        function addText(parent, text, y, size, material, z = 0.06) {
           const geometry = new TextGeometry(text, {
             font,
             size,
-            depth: options.depth ?? 0.028,
+            depth: 0.022,
             curveSegments: 4,
             bevelEnabled: true,
-            bevelThickness: 0.006,
-            bevelSize: 0.004,
+            bevelThickness: 0.004,
+            bevelSize: 0.003,
             bevelSegments: 2
           });
           geometry.computeBoundingBox();
           const width = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
           geometry.translate(-width / 2, 0, 0);
-          const inscription = new THREE.Mesh(geometry, material);
-          inscription.position.set(0, y, 0.052);
-          inscription.castShadow = true;
-          inscription.receiveShadow = true;
-          engraving.add(inscription);
-          return inscription;
+          const textMesh = new THREE.Mesh(geometry, material);
+          textMesh.position.set(0, y, z);
+          textMesh.castShadow = true;
+          textMesh.receiveShadow = true;
+          parent.add(textMesh);
+          return textMesh;
         }
 
-        addInscribedLine("WHAT I DO", 1.35, 0.17, accentMaterial);
-        addInscribedLine("DIGITAL SERVICES", 0.91, 0.38, textMaterial);
-        const divider = new THREE.Mesh(
-          new THREE.BoxGeometry(1.02, 0.012, 0.018),
-          borderMaterial
-        );
-        divider.position.set(0, 0.71, 0.06);
-        engraving.add(divider);
+        addText(wall, "WHAT I DO", 1.48, 0.15, iconAccentMaterial);
+        addText(wall, "DIGITAL SERVICES", 1.16, 0.27, silverMaterial);
 
-        const serviceLines = [
-          "CUSTOM WEBSITE DEVELOPMENT",
-          "WEB APPLICATIONS & SAAS",
-          "BUSINESS SOFTWARE & AUTOMATION",
-          "E-COMMERCE & WORDPRESS",
-          "LARAVEL, PHP & BACKEND SYSTEMS",
-          "PYTHON & DJANGO DEVELOPMENT",
-          "UI/UX DESIGN & DIGITAL STRATEGY",
-          "SEO & WEBSITE OPTIMIZATION"
+        const serviceItems = [
+          { lines: ["CUSTOM WEBSITE", "DEVELOPMENT"], icon: "website" },
+          { lines: ["WEB APPS", "& SAAS"], icon: "apps" },
+          { lines: ["CUSTOM SOFTWARE", "& SYSTEMS"], icon: "software" },
+          { lines: ["E-COMMERCE", "DEVELOPMENT"], icon: "commerce" },
+          { lines: ["WORDPRESS", "DEVELOPMENT"], icon: "wordpress" },
+          { lines: ["UI/UX", "DESIGN"], icon: "design" },
+          { lines: ["BUSINESS", "AUTOMATION"], icon: "automation" },
+          { lines: ["SEO & WEBSITE", "OPTIMIZATION"], icon: "search" },
+          { lines: ["BUSINESS PLANS", "& PROPOSALS"], icon: "planning" }
         ];
-        serviceLines.forEach((service, index) => {
-          const y = 0.39 - index * 0.285;
-          addInscribedLine(`${String(index + 1).padStart(2, "0")}  /  ${service}`, y, 0.142, index % 2 ? textMaterial : accentMaterial, {
-            depth: 0.022
+        const tileWidth = 1.78;
+        const tileHeight = 0.78;
+        const tileShape = new THREE.Shape();
+        const radius = 0.09;
+        tileShape.moveTo(-tileWidth / 2 + radius, -tileHeight / 2);
+        tileShape.lineTo(tileWidth / 2 - radius, -tileHeight / 2);
+        tileShape.quadraticCurveTo(tileWidth / 2, -tileHeight / 2, tileWidth / 2, -tileHeight / 2 + radius);
+        tileShape.lineTo(tileWidth / 2, tileHeight / 2 - radius);
+        tileShape.quadraticCurveTo(tileWidth / 2, tileHeight / 2, tileWidth / 2 - radius, tileHeight / 2);
+        tileShape.lineTo(-tileWidth / 2 + radius, tileHeight / 2);
+        tileShape.quadraticCurveTo(-tileWidth / 2, tileHeight / 2, -tileWidth / 2, tileHeight / 2 - radius);
+        tileShape.lineTo(-tileWidth / 2, -tileHeight / 2 + radius);
+        tileShape.quadraticCurveTo(-tileWidth / 2, -tileHeight / 2, -tileWidth / 2 + radius, -tileHeight / 2);
+
+        function addIconPart(icon, geometry, material, position, rotation = [0, 0, 0]) {
+          const mesh = new THREE.Mesh(geometry, material);
+          mesh.position.set(...position);
+          mesh.rotation.set(...rotation);
+          mesh.castShadow = true;
+          icon.add(mesh);
+          return mesh;
+        }
+
+        function makeServiceIcon(kind, parent) {
+          const icon = new THREE.Group();
+          icon.position.set(0, 0.11, 0.17);
+          icon.scale.setScalar(1.08);
+          parent.add(icon);
+          const boxIcon = (size, position, material = silverMaterial, rotation) =>
+            addIconPart(icon, new THREE.BoxGeometry(...size), material, position, rotation);
+
+          if (kind === "website") {
+            boxIcon([0.38, 0.25, 0.045], [0, 0.055, 0], pearlMaterial);
+            boxIcon([0.32, 0.19, 0.012], [0, 0.055, 0.027], plaqueMaterial);
+            boxIcon([0.46, 0.035, 0.06], [0, -0.105, 0.01], iconAccentMaterial);
+            boxIcon([0.05, 0.08, 0.035], [0, -0.06, 0], silverMaterial);
+          } else if (kind === "apps") {
+            boxIcon([0.3, 0.25, 0.04], [-0.055, 0.04, 0], pearlMaterial);
+            boxIcon([0.27, 0.22, 0.045], [0.07, -0.04, 0.04], iconAccentMaterial);
+            boxIcon([0.21, 0.13, 0.012], [0.07, -0.04, 0.067], plaqueMaterial);
+            [-0.04, 0, 0.04].forEach((x) =>
+              addIconPart(icon, new THREE.SphereGeometry(0.014, 8, 6), silverMaterial, [x, 0.118, 0.074])
+            );
+          } else if (kind === "software") {
+            boxIcon([0.17, 0.17, 0.17], [-0.1, 0.01, 0], iconAccentMaterial, [0.25, 0.35, 0.12]);
+            boxIcon([0.17, 0.17, 0.17], [0.1, 0.01, 0], pearlMaterial, [-0.2, 0.34, -0.12]);
+            boxIcon([0.18, 0.18, 0.18], [0, 0.12, -0.045], silverMaterial, [0.15, -0.2, 0.1]);
+          } else if (kind === "commerce") {
+            boxIcon([0.32, 0.25, 0.075], [0, -0.015, 0], iconAccentMaterial);
+            addIconPart(icon, new THREE.TorusGeometry(0.09, 0.018, 8, 20, Math.PI), silverMaterial, [0, 0.105, 0.015], [0, 0, Math.PI]);
+            boxIcon([0.025, 0.11, 0.025], [-0.09, 0.05, 0.045], pearlMaterial);
+            boxIcon([0.025, 0.11, 0.025], [0.09, 0.05, 0.045], pearlMaterial);
+          } else if (kind === "wordpress") {
+            addIconPart(icon, new THREE.CylinderGeometry(0.16, 0.16, 0.055, 32), iconAccentMaterial, [0, 0.015, 0], [Math.PI / 2, 0, 0]);
+            addIconPart(icon, new THREE.TorusGeometry(0.155, 0.014, 8, 32), silverMaterial, [0, 0.015, 0.033]);
+            const letter = new TextGeometry("W", { font, size: 0.205, depth: 0.025, curveSegments: 4 });
+            letter.computeBoundingBox();
+            const width = letter.boundingBox.max.x - letter.boundingBox.min.x;
+            letter.translate(-width / 2, -0.07, 0);
+            addIconPart(icon, letter, pearlMaterial, [0, 0.015, 0.04]);
+          } else if (kind === "design") {
+            const cursor = new THREE.Shape();
+            cursor.moveTo(-0.09, 0.18);
+            cursor.lineTo(0.12, 0.02);
+            cursor.lineTo(0.025, -0.005);
+            cursor.lineTo(0.085, -0.12);
+            cursor.lineTo(0.035, -0.145);
+            cursor.lineTo(-0.025, -0.03);
+            cursor.lineTo(-0.09, -0.105);
+            cursor.closePath();
+            const cursorGeometry = new THREE.ExtrudeGeometry(cursor, { depth: 0.045, bevelEnabled: true, bevelSize: 0.008, bevelThickness: 0.008, bevelSegments: 2 });
+            addIconPart(icon, cursorGeometry, iconAccentMaterial, [0, 0, 0], [0, 0, -0.1]);
+            addIconPart(icon, new THREE.SphereGeometry(0.045, 12, 8), pearlMaterial, [0.15, 0.12, -0.02]);
+          } else if (kind === "automation") {
+            addIconPart(icon, new THREE.TorusGeometry(0.105, 0.028, 8, 24), iconAccentMaterial, [0, 0.02, 0]);
+            addIconPart(icon, new THREE.TorusGeometry(0.036, 0.014, 8, 16), pearlMaterial, [0, 0.02, 0.035]);
+            for (let tooth = 0; tooth < 8; tooth += 1) {
+              const angle = tooth * Math.PI / 4;
+              boxIcon([0.045, 0.045, 0.045], [Math.cos(angle) * 0.13, 0.02 + Math.sin(angle) * 0.13, 0], silverMaterial, [0, 0, angle]);
+            }
+          } else if (kind === "search") {
+            addIconPart(icon, new THREE.TorusGeometry(0.12, 0.026, 8, 24), iconAccentMaterial, [-0.035, 0.055, 0]);
+            const handle = boxIcon([0.045, 0.17, 0.045], [0.095, -0.09, 0], silverMaterial);
+            handle.rotation.z = -0.7;
+            addIconPart(icon, new THREE.SphereGeometry(0.025, 10, 8), pearlMaterial, [-0.035, 0.055, 0.01]);
+          } else {
+            boxIcon([0.25, 0.32, 0.045], [0, 0.015, 0], pearlMaterial);
+            for (let line = 0; line < 3; line += 1) {
+              boxIcon([line === 1 ? 0.15 : 0.17, 0.018, 0.018], [-0.005, 0.09 - line * 0.075, 0.032], iconAccentMaterial);
+            }
+            addIconPart(icon, new THREE.TorusGeometry(0.048, 0.012, 8, 16), silverMaterial, [0.13, -0.105, 0.04]);
+          }
+          return icon;
+        }
+
+        serviceItems.forEach((service, index) => {
+          const column = index % 3;
+          const row = Math.floor(index / 3);
+          const x = (column - 1) * 1.88;
+          const y = 0.31 - row * 0.82;
+          const tile = new THREE.Group();
+          tile.position.set(x, y, 0);
+          wall.add(tile);
+
+          const shapeGeometry = new THREE.ExtrudeGeometry(tileShape, {
+            depth: 0.045,
+            bevelEnabled: true,
+            bevelSegments: 2,
+            steps: 1,
+            bevelSize: 0.018,
+            bevelThickness: 0.012,
+            curveSegments: 5
+          });
+          const tileMesh = new THREE.Mesh(shapeGeometry, tileMaterial);
+          tileMesh.position.z = 0.045;
+          tileMesh.castShadow = true;
+          tileMesh.receiveShadow = true;
+          tile.add(tileMesh);
+
+          const topAccent = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.012, 0.018), edgeMaterial);
+          topAccent.position.set(0, tileHeight / 2 - 0.035, 0.105);
+          tile.add(topAccent);
+
+          makeServiceIcon(service.icon, tile);
+          service.lines.forEach((line, lineIndex) => {
+            const geometry = new TextGeometry(line, {
+              font,
+              size: 0.132,
+              depth: 0.014,
+              curveSegments: 3,
+              bevelEnabled: true,
+              bevelThickness: 0.002,
+              bevelSize: 0.0015,
+              bevelSegments: 1
+            });
+            geometry.computeBoundingBox();
+            const width = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+            geometry.translate(-width / 2, 0, 0);
+            const label = new THREE.Mesh(geometry, lineIndex === 0 ? silverMaterial : pearlMaterial);
+            label.position.set(0, -0.18 - lineIndex * 0.18, 0.11);
+            label.castShadow = true;
+            tile.add(label);
           });
         });
 
         const halo = registerRoomLight(new THREE.PointLight(0x7d91ff, 3.8, 6), 7);
-        halo.position.set(0, 0.3, 0.72);
-        engraving.add(halo);
-        serviceInscription = engraving;
+        halo.position.set(0, 0.2, 0.72);
+        wall.add(halo);
+        serviceInscription = { wall, ownedMaterials };
         requestRender();
       } catch (error) {
         console.warn("Could not load 3D service lettering; using the illustrated wall display instead.", error);
@@ -1563,9 +1709,10 @@ if (canvas && room) {
       Object.values(wallTextures).forEach((texture) => texture.dispose());
       studioWallCopy.texture.dispose();
       if (serviceInscription) {
-        serviceInscription.traverse((object) => {
+        serviceInscription.wall.traverse((object) => {
           if (object.isMesh) object.geometry.dispose();
         });
+        serviceInscription.ownedMaterials.forEach((material) => material.dispose());
       }
       monitorTexture.dispose();
       photoTextures.forEach((texture) => texture.dispose());
