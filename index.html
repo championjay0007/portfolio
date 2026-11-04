@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#090a0d">
+    <meta name="description" content="Championjay Technology — creative full-stack development, software engineering, and digital product design.">
+    <title>Championjay Technology — Digital experiences, engineered.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=room-tour-8">
+    <link rel="stylesheet" href="css/responsive.css?v=room-tour-4">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script type="module" src="js/three-scene.js?v=room-tour-30"></script>
+    <script src="js/animations.js?v=room-tour" defer></script>
+    <script src="js/interactions.js?v=room-tour" defer></script>
+    <script src="js/main.js?v=room-tour-3" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page-loader" aria-hidden="true">
+      <div class="loader-mark">CJ<span>.</span></div>
+      <div class="loader-track"><i></i></div>
+      <span class="loader-label">INITIALIZING EXPERIENCE</span>
+    </div>
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+
+    <header class="site-header" id="top">
+      <a class="brand" href="#top" aria-label="Championjay Technology home">
+        <span class="brand-mark">CJ<span>.</span></span>
+        <span class="brand-name">CHAMPIONJAY <span>TECHNOLOGY</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation">
+        <span></span><span></span>
+      </button>
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#work">Selected work</a>
+        <a href="#services">Services</a>
+        <a class="nav-contact" href="#contact">Let's talk <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="room-experience" aria-labelledby="room-title">
+        <canvas id="hero-canvas" aria-label="Interactive 3D portfolio room. Move your pointer horizontally to look around. The Studio wall features Championjay's portrait beside a large, unframed client-focused headline painted directly on the wall."></canvas>
+        <div class="room-fallback" aria-hidden="true">
+          <div class="fallback-window"><span>CHAMPIONJAY TECHNOLOGY</span><strong>BUILDING DIGITAL<br>EXPERIENCES THAT<br>MOVE BUSINESSES<br>FORWARD.</strong><i>FULL-STACK DEVELOPMENT · CREATIVE ENGINEERING</i></div>
+          <div class="fallback-lamp"></div><div class="fallback-floor"></div>
+        </div>
+        <div class="room-vignette" aria-hidden="true"></div>
+        <div class="room-intro">
+          <span class="room-kicker"><i class="status-pulse"></i> CHAMPIONJAY TECHNOLOGY · DIGITAL STUDIO</span>
+          <h1 id="room-title">Come on <span>in.</span></h1>
+          <p>A portfolio you can walk into.<br>Find a wall. Stay a while.</p>
+        </div>
+        <div class="room-availability"><span class="status-pulse"></span> AVAILABLE FOR PROJECTS WORLDWIDE</div>
+        <div class="room-zoom-controls" role="group" aria-label="Zoom the 3D room. Use the plus and minus buttons, mouse wheel, or pinch.">
+          <button type="button" class="room-zoom-button" data-zoom="in" aria-label="Zoom in" title="Zoom in">+</button>
+          <output class="room-zoom-level" aria-live="polite" aria-label="Room zoom level">100%</output>
+          <button type="button" class="room-zoom-button" data-zoom="out" aria-label="Zoom out" title="Zoom out">−</button>
+          <button type="button" class="room-zoom-reset" data-zoom="reset" aria-label="Reset room zoom">RESET</button>
+          <span class="room-zoom-hint" aria-hidden="true">SCROLL / PINCH</span>
+        </div>
+        <div class="room-bottom">
+          <nav class="room-wall-nav" aria-label="Look toward a portfolio wall">
+            <button type="button" class="is-active" data-room-wall="studio" aria-pressed="true"><span>01</span> Studio</button>
+            <button type="button" data-room-wall="about" aria-pressed="false"><span>02</span> About</button>
+            <button type="button" data-room-wall="services" aria-pressed="false"><span>03</span> Services</button>
+            <button type="button" data-room-wall="contact" aria-pressed="false"><span>04</span> Contact</button>
+          </nav>
+          <div class="room-look-hint"><span class="look-arrow">↔</span> MOVE YOUR MOUSE TO LOOK AROUND <span class="hint-divider">·</span> DRAG TO TURN</div>
+          <button type="button" class="room-light-toggle" aria-pressed="false" aria-label="Turn the room lights on">
+            <span class="light-icon" aria-hidden="true">☼</span><span class="light-label">LIGHTS ON</span>
+          </button>
+          <button type="button" class="room-replay">↺ <span>REPLAY ARRIVAL</span></button>
+        </div>
+        <p class="sr-only" id="room-announcement" aria-live="polite">Entering the Championjay Technology studio. Use the wall navigation or move your pointer to look around.</p>
+      </section>
+
+      <section class="intro-strip" aria-label="Introduction">
+        <span>THOUGHTFUL BY DESIGN</span><i></i><span>ENGINEERED FOR IMPACT</span><i></i><span>BUILT FOR WHAT'S NEXT</span>
+      </section>
+
+      <section class="section about-section section-shell" id="about">
+        <div class="section-heading reveal">
+          <span class="eyebrow">01 — ABOUT ME</span>
+          <span class="section-index">INDEPENDENT · CREATIVE · TECHNICAL</span>
+        </div>
+        <div class="about-grid">
+          <div class="about-visual reveal">
+            <div class="about-art">
+              <div class="about-orb"></div>
+              <div class="about-wire wire-one"></div><div class="about-wire wire-two"></div>
+              <span class="about-art-label">DESIGN<br>MEETS LOGIC</span>
+              <span class="about-art-coordinate">CJ / 001</span>
+            </div>
+            <div class="about-caption"><span>CURIOUS MIND.</span><span>PRECISE CRAFT.</span></div>
+          </div>
+          <div class="about-copy reveal">
+            <h2>I'm a Developer, Creator, and Problem Solver.</h2>
+            <p class="body-large">I'm a passionate Full-Stack Developer and Technology Entrepreneur driven by the desire to transform ideas into innovative digital experiences. I specialize in designing, developing, and delivering modern websites, web applications, software solutions, and technology-driven products that solve real-world problems.</p>
+            <p>My journey in technology is built around curiosity, continuous learning, creativity, and a commitment to building things that make a difference. I enjoy exploring new technologies, experimenting with emerging tools, and pushing the boundaries of what's possible through code.</p>
+            <p>With experience across frontend and backend development, I work with HTML, CSS, JavaScript, PHP, Laravel, Python, Django, Bootstrap, and modern web development tools. My interests also extend into artificial intelligence, automation, 3D web experiences, SaaS development, and software product innovation.</p>
+            <p>Beyond writing code, I have a strong interest in product development, business strategy, branding, UI/UX design, and digital entrepreneurship. I enjoy taking projects from the initial concept and planning stages through design, development, deployment, and continuous improvement.</p>
+            <p>I believe technology should do more than look impressive. It should solve problems, simplify processes, create opportunities, and deliver measurable value. Whether I'm building a business website, developing a management platform, creating a SaaS application, or experimenting with new technologies, my approach remains the same: think creatively, build intelligently, and deliver with purpose.</p>
+            <div class="about-detail">
+              <h3>My philosophy</h3>
+              <p><strong>Don't just imagine what technology can do. Build it.</strong></p>
+            </div>
+            <div class="about-detail">
+              <h3>What I do</h3>
+              <ul>
+                <li>Full-Stack Web Development</li>
+                <li>Custom Software &amp; Application Development</li>
+                <li>UI/UX Design &amp; Interactive Experiences</li>
+                <li>Laravel &amp; PHP Development</li>
+                <li>Python &amp; Django Development</li>
+                <li>SaaS Product Development</li>
+                <li>AI-Powered Digital Solutions</li>
+                <li>Business Websites &amp; E-commerce Platforms</li>
+                <li>Branding &amp; Digital Strategy</li>
+                <li>Technical Consulting &amp; Problem Solving</li>
+              </ul>
+            </div>
+            <div class="about-detail about-mission">
+              <div><h3>My mission</h3><p>To leverage technology, creativity, and innovation to build meaningful digital products that empower businesses, improve lives, and create opportunities without boundaries.</p></div>
+              <div><h3>My vision</h3><p>To become a leading force in technology and digital innovation, building products and solutions that make a lasting impact globally.</p></div>
+            </div>
+            <div class="about-capabilities">
+              <span>Full-stack development</span><span>Creative problem-solving</span><span>UI/UX design</span><span>Business automation</span><span>Digital products</span>
+            </div>
+            <a class="text-link" href="#contact">A little more about working together <span>↗</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section expertise-section section-shell" id="expertise">
+        <div class="section-heading reveal"><span class="eyebrow">02 — SKILLS &amp; TECHNOLOGIES</span><span class="section-index">CAPABILITIES / 08</span></div>
+        <div class="section-title-row reveal">
+          <h2>Ideas are good.<br><span class="muted-title">Making them real is better.</span></h2>
+          <p>One creative partner. The right tools for the job. Digital solutions built to do more.</p>
+        </div>
+        <div class="expertise-grid">
+          <article class="expertise-card reveal" data-card>
+            <span class="card-number">01</span><span class="expertise-icon">⌘</span>
+            <h3>Web development</h3><p>Modern, responsive, high-performance websites that make a great first impression.</p><span class="card-arrow">↗</span>
+          </article>
+          <article class="expertise-card reveal" data-card>
+            <span class="card-number">02</span><span class="expertise-icon">◈</span>
+            <h3>Software development</h3><p>Custom software and business management applications built around your workflow.</p><span class="card-arrow">↗</span>
+          </article>
+          <article class="expertise-card reveal" data-card>
+            <span class="card-number">03</span><span class="expertise-icon">⌁</span>
+            <h3>Backend development</h3><p>Robust APIs and reliable server-side systems with PHP, Laravel, Python and Django.</p><span class="card-arrow">↗</span>
+          </article>
+          <article class="expertise-card reveal" data-card>
+            <span class="card-number">04</span><span class="expertise-icon">⟨⟩</span>
+            <h3>Frontend development</h3><p>Accessible, polished interfaces with HTML, CSS, JavaScript and Bootstrap.</p><span class="card-arrow">↗</span>
+          </article>
+          <article class="expertise-card reveal" data-card>
+            <span class="card-number">05</span><span class="expertise-icon">✳</span>
+            <h3>UI/UX design</h3><p>Beautiful, intuitive user experiences designed around real people and real needs.</p><span class="card-arrow">↗</span>
+          </article>
+          <article class="expertise-card reveal" data-card>
+            <span class="card-number">06</span><span class="expertise-icon">▤</span>
+            <h3>CMS development</h3><p>Flexible WordPress builds and custom content systems that are easy to own.</p><span class="card-arrow">↗</span>
+          </article>
+          <article class="expertise-card reveal" data-card>
+            <span class="card-number">07</span><span class="expertise-icon">⌕</span>
+            <h3>SEO optimization</h3><p>Search-friendly foundations that help the right people find your website.</p><span class="card-arrow">↗</span>
+          </article>
+          <article class="expertise-card reveal" data-card>
+            <span class="card-number">08</span><span class="expertise-icon">↗</span>
+            <h3>Business solutions</h3><p>Business plans, proposals, market research and practical digital consulting.</p><span class="card-arrow">↗</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section work-section section-shell" id="work">
+        <div class="section-heading reveal"><span class="eyebrow">03 — FEATURED PROJECTS</span><span class="section-index">A FEW THINGS I'VE BEEN BUILDING</span></div>
+        <div class="section-title-row work-title-row reveal">
+          <h2>Made with purpose.<br><span class="muted-title">Designed to make a difference.</span></h2>
+          <p>Explorations and project placeholders. Details, links and imagery are easy to update as work goes live.</p>
+        </div>
+        <div class="project-filters reveal" role="group" aria-label="Filter projects">
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All work <span>07</span></button>
+          <button class="filter-button" type="button" data-filter="applications" aria-pressed="false">Applications</button>
+          <button class="filter-button" type="button" data-filter="platforms" aria-pressed="false">Platforms</button>
+          <button class="filter-button" type="button" data-filter="experiments" aria-pressed="false">Experiments</button>
+        </div>
+        <div class="projects-grid" id="projects-grid" aria-live="polite"></div>
+        <p class="project-note"><span>↗</span> Project descriptions are illustrative placeholders. No client metrics or testimonials are claimed.</p>
+      </section>
+
+      <section class="tech-section" id="technology">
+        <div class="section-shell tech-inner">
+          <div class="tech-copy reveal">
+            <span class="eyebrow">SKILLS &amp; TECHNOLOGIES / TOOLKIT</span>
+            <h2>The right tool.<br><span class="serif-accent">For the right idea.</span></h2>
+            <p>Good technology is invisible. This is the toolkit I reach for to make digital products feel seamless, fast and ready to grow.</p>
+            <span class="tech-instruction">HOVER TO EXPLORE <i>↗</i></span>
+          </div>
+          <div class="tech-orbit reveal" aria-label="Interactive visualization of technologies used">
+            <div class="orbit-ring orbit-ring-one"></div><div class="orbit-ring orbit-ring-two"></div>
+            <span class="orbit-center">CJ<span>.</span></span>
+            <button class="tech-chip chip-php" type="button">PHP</button>
+            <button class="tech-chip chip-laravel" type="button">Laravel</button>
+            <button class="tech-chip chip-python" type="button">Python</button>
+            <button class="tech-chip chip-django" type="button">Django</button>
+            <button class="tech-chip chip-js" type="button">JavaScript</button>
+            <button class="tech-chip chip-html" type="button">HTML5</button>
+            <button class="tech-chip chip-css" type="button">CSS3</button>
+            <button class="tech-chip chip-bootstrap" type="button">Bootstrap</button>
+            <button class="tech-chip chip-mysql" type="button">MySQL</button>
+            <button class="tech-chip chip-git" type="button">Git</button>
+            <button class="tech-chip chip-github" type="button">GitHub</button>
+            <button class="tech-chip chip-three" type="button">Three.js</button>
+            <button class="tech-chip chip-wordpress" type="button">WordPress</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section services-section section-shell" id="services">
+        <div class="section-heading reveal"><span class="eyebrow">04 — WHAT I DO</span><span class="section-index">FROM FIRST IDEA TO WHAT'S NEXT</span></div>
+        <div class="section-title-row reveal"><h2>Let's build your<br><span class="muted-title">next right thing.</span></h2><p>Clear communication, considered craft and solutions that keep working long after launch.</p></div>
+        <div class="services-list">
+          <a class="service-row reveal" href="#contact"><span class="service-number">01</span><span class="service-name">Custom website development</span><span class="service-detail">Beautiful, fast websites made for your goals.</span><span class="service-arrow">↗</span></a>
+          <a class="service-row reveal" href="#contact"><span class="service-number">02</span><span class="service-name">Web application development</span><span class="service-detail">Purpose-built digital products for real-world needs.</span><span class="service-arrow">↗</span></a>
+          <a class="service-row reveal" href="#contact"><span class="service-number">03</span><span class="service-name">Software development</span><span class="service-detail">Custom business software that fits how you work.</span><span class="service-arrow">↗</span></a>
+          <a class="service-row reveal" href="#contact"><span class="service-number">04</span><span class="service-name">E-commerce development</span><span class="service-detail">Thoughtful online stores, from browsing to checkout.</span><span class="service-arrow">↗</span></a>
+          <a class="service-row reveal" href="#contact"><span class="service-number">05</span><span class="service-name">WordPress development</span><span class="service-detail">Flexible content experiences you can confidently manage.</span><span class="service-arrow">↗</span></a>
+          <a class="service-row reveal" href="#contact"><span class="service-number">06</span><span class="service-name">UI/UX design</span><span class="service-detail">Intuitive journeys that make complex things feel simple.</span><span class="service-arrow">↗</span></a>
+          <a class="service-row reveal" href="#contact"><span class="service-number">07</span><span class="service-name">Business automation</span><span class="service-detail">Smarter workflows that free you up for what matters.</span><span class="service-arrow">↗</span></a>
+          <a class="service-row reveal" href="#contact"><span class="service-number">08</span><span class="service-name">SEO & website optimization</span><span class="service-detail">A faster, more discoverable digital foundation.</span><span class="service-arrow">↗</span></a>
+          <a class="service-row reveal" href="#contact"><span class="service-number">09</span><span class="service-name">Business plans & proposals</span><span class="service-detail">Clear, research-informed plans for your next move.</span><span class="service-arrow">↗</span></a>
+          <a class="service-row reveal" href="#contact"><span class="service-number">10</span><span class="service-name">Branding & digital strategy</span><span class="service-detail">A thoughtful identity and clear direction for your digital presence.</span><span class="service-arrow">↗</span></a>
+          <a class="service-row reveal" href="#contact"><span class="service-number">11</span><span class="service-name">Technical consulting & problem solving</span><span class="service-detail">Practical technical guidance to turn complex challenges into clear next steps.</span><span class="service-arrow">↗</span></a>
+        </div>
+      </section>
+
+      <section class="process-section" id="process">
+        <div class="section-shell">
+          <div class="section-heading reveal"><span class="eyebrow">05 — MY APPROACH</span><span class="section-index">GOOD WORK, BUILT TOGETHER</span></div>
+          <div class="process-heading reveal"><h2>From the first <span class="serif-accent">what if</span><br>to the final <span class="serif-accent">let's go.</span></h2><p>A transparent, collaborative process. No black boxes, no surprises—just thoughtful work at every step.</p></div>
+          <div class="process-timeline">
+            <article class="process-step reveal"><span class="process-count">01</span><span class="process-marker"></span><h3>Discovery</h3><p>Understand your goals, audience and what success looks like.</p></article>
+            <article class="process-step reveal"><span class="process-count">02</span><span class="process-marker"></span><h3>Planning</h3><p>Choose the right direction, technology and project milestones.</p></article>
+            <article class="process-step reveal"><span class="process-count">03</span><span class="process-marker"></span><h3>Design</h3><p>Shape a clear, considered experience for the people who use it.</p></article>
+            <article class="process-step reveal"><span class="process-count">04</span><span class="process-marker"></span><h3>Development</h3><p>Bring the design to life with reliable, purposeful engineering.</p></article>
+            <article class="process-step reveal"><span class="process-count">05</span><span class="process-marker"></span><h3>Testing</h3><p>Check every detail across devices, browsers and real-world flows.</p></article>
+            <article class="process-step reveal"><span class="process-count">06</span><span class="process-marker"></span><h3>Deployment</h3><p>Launch with care and make sure everything is ready to go.</p></article>
+            <article class="process-step reveal"><span class="process-count">07</span><span class="process-marker"></span><h3>Support</h3><p>Stay supported as your product grows and your needs evolve.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="numbers-section section-shell" aria-labelledby="numbers-title">
+        <div class="numbers-intro reveal"><span class="eyebrow">07 — THE WORK, IN PERSPECTIVE</span><h2 id="numbers-title">Thoughtful work.<br><span class="muted-title">Never made-up numbers.</span></h2><p>I believe in showing work honestly. I’ll share verified project details and experience here as they’re ready.</p></div>
+        <div class="numbers-grid reveal">
+          <div class="number-card"><span class="number-value">—</span><span class="number-label">COMPLETED PROJECTS</span><span class="number-note">Details coming soon</span></div>
+          <div class="number-card"><span class="number-value">—</span><span class="number-label">TECHNOLOGIES USED</span><span class="number-note">Details coming soon</span></div>
+          <div class="number-card"><span class="number-value">—</span><span class="number-label">HAPPY CLIENTS</span><span class="number-note">Details coming soon</span></div>
+          <div class="number-card"><span class="number-value">—</span><span class="number-label">YEARS OF EXPERIENCE</span><span class="number-note">Details coming soon</span></div>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact">
+        <div class="contact-orb" aria-hidden="true"></div>
+        <div class="section-shell contact-inner">
+          <div class="section-heading reveal"><span class="eyebrow">06 — LET'S COLLABORATE</span><span class="section-index">GOOD THINGS START WITH A CONVERSATION</span></div>
+          <div class="contact-grid">
+            <div class="contact-copy reveal">
+              <h2>HAVE AN IDEA?<br>LET'S BUILD<br>SOMETHING <span class="serif-accent">EXTRAORDINARY.</span></h2>
+              <p>Have an idea, a business challenge, or a digital product in mind? Tell me what you want to achieve. We can shape the right solution together, from the first conversation through launch.</p>
+              <div class="contact-details" aria-label="Contact details">
+                <a class="contact-detail contact-email" data-contact-email href="mailto:championjaytech@gmail.com">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg>
+                  <span data-contact-value>championjaytech@gmail.com</span>
+                </a>
+                <a class="contact-detail" data-contact-phone href="tel:+2349138370625">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 3h3l2 5-2.5 1.8a15 15 0 0 0 4.7 4.7L16 12l5 2v3c0 1.1-.9 2-2 2C10.7 19 5 13.3 5 6c0-1.7.7-3 2-3Z"></path></svg>
+                  <span data-contact-value>+234 913 837 0625</span>
+                </a>
+                <span class="contact-detail contact-social">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M16 8v6a2 2 0 1 1-2-2h2m0-4v8a4 4 0 1 1-4-4"></path></svg>
+                  <span>@championjaytech</span>
+                </span>
+              </div>
+              <a class="whatsapp-link" data-whatsapp href="https://wa.me/2349138370625" target="_blank" rel="noopener noreferrer">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"></path><path d="M9 8.5c.3-.5.6-.5 1-.5l1 2-1 1c.8 1.4 1.7 2.2 3.1 2.8l.9-1 2 1c0 .4-.1.8-.5 1.1-.7.6-1.8.7-3.3.1-2.2-.9-3.9-2.6-4.4-4.3-.3-.9.1-1.7.5-2.2Z"></path></svg>
+                <span data-whatsapp-label>Message me on WhatsApp</span>
+              </a>
+            </div>
+            <form class="contact-form reveal" id="contact-form">
+              <div class="form-row">
+                <label for="contact-name">Your name <span>*</span><input id="contact-name" name="name" type="text" autocomplete="name" placeholder="How should I address you?" required minlength="2"></label>
+                <label for="contact-email">Email address <span>*</span><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+              </div>
+              <label for="contact-subject">What can I help with? <span>*</span><input id="contact-subject" name="subject" type="text" placeholder="Website, application, big idea..." required minlength="3"></label>
+              <label for="contact-message">A little about your project <span>*</span><textarea id="contact-message" name="message" rows="4" placeholder="What are you hoping to make?" required minlength="10"></textarea></label>
+              <button class="button button-primary form-submit" type="submit">Let's make it happen <span aria-hidden="true">↗</span></button>
+              <p class="form-note" id="form-status" role="status" aria-live="polite">Your email app will open with your message ready to send.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-main section-shell">
+        <a class="footer-brand" href="#top"><span class="brand-mark">CJ<span>.</span></span><span>CHAMPIONJAY<br>TECHNOLOGY</span></a>
+        <p>Turning Ideas Into<br><span class="serif-accent">Digital Reality.</span></p>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="#about">About</a><a href="#expertise">Expertise</a><a href="#work">Work</a><a href="#services">Services</a><a href="#contact">Contact</a></nav>
+        <div class="footer-social"><a data-social="github" href="#contact" aria-label="GitHub profile (configure URL)">GH <span>↗</span></a><a data-social="linkedin" href="#contact" aria-label="LinkedIn profile (configure URL)">IN <span>↗</span></a><a data-social="instagram" href="#contact" aria-label="Instagram profile (configure URL)">IG <span>↗</span></a></div>
+      </div>
+      <div class="footer-bottom section-shell"><span>© <span id="current-year"></span> CHAMPIONJAY TECHNOLOGY</span><span>DESIGNED WITH INTENTION. BUILT WITH CARE.</span><a href="#top">BACK TO TOP ↑</a></div>
+    </footer>
+    <dialog class="project-dialog" id="project-dialog" aria-labelledby="dialog-title">
+      <button class="dialog-close" type="button" aria-label="Close project details">×</button>
+      <div class="dialog-art" aria-hidden="true"></div>
+      <div class="dialog-content"><span class="eyebrow dialog-category"></span><h2 id="dialog-title"></h2><p class="dialog-description"></p><div class="dialog-tags"></div><div class="dialog-links"></div></div>
+    </dialog>
+  </body>
+</html>
