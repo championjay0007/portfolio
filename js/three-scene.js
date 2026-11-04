@@ -1241,22 +1241,31 @@ if (canvas && room) {
     chairMessageCanvas.width = 768;
     chairMessageCanvas.height = 320;
     const chairMessageContext = chairMessageCanvas.getContext("2d");
+    chairMessageContext.beginPath();
+    chairMessageContext.roundRect(45, 37, 678, 246, 22);
+    chairMessageContext.fillStyle = "rgba(10,13,22,.34)";
+    chairMessageContext.fill();
+    chairMessageContext.strokeStyle = "rgba(179,194,255,.32)";
+    chairMessageContext.lineWidth = 3;
+    chairMessageContext.stroke();
     chairMessageContext.textAlign = "center";
     chairMessageContext.textBaseline = "middle";
     chairMessageContext.fillStyle = "#b5ecc9";
-    chairMessageContext.fillRect(184, 49, 400, 4);
+    chairMessageContext.fillRect(284, 67, 200, 4);
     chairMessageContext.fillStyle = "#f4f1f3";
-    chairMessageContext.font = "700 68px 'Manrope', 'Segoe UI', sans-serif";
-    chairMessageContext.fillText("OPEN TO WORK", 384, 139);
+    chairMessageContext.font = "700 70px 'Manrope', 'Segoe UI', sans-serif";
+    chairMessageContext.fillText("I'M AVAILABLE", 384, 139);
     chairMessageContext.fillStyle = "#b3c2ff";
-    chairMessageContext.font = "700 66px 'Manrope', 'Segoe UI', sans-serif";
-    chairMessageContext.fillText("WITH YOU", 384, 224);
+    chairMessageContext.font = "700 56px 'Manrope', 'Segoe UI', sans-serif";
+    chairMessageContext.fillText("TO WORK WITH YOU.", 384, 214);
+    chairMessageContext.fillStyle = "rgba(181,236,201,.72)";
+    chairMessageContext.fillRect(330, 253, 108, 3);
     const chairMessageTexture = new THREE.CanvasTexture(chairMessageCanvas);
     chairMessageTexture.colorSpace = THREE.SRGBColorSpace;
     chairMessageTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
     photoTextures.push(chairMessageTexture);
     const chairMessage = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.82, 0.34),
+      new THREE.PlaneGeometry(0.9, 0.375),
       new THREE.MeshBasicMaterial({ map: chairMessageTexture, transparent: true, toneMapped: false, depthWrite: false })
     );
     chairMessage.position.set(0, 1.48, 0.486);
