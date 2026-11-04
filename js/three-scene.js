@@ -1123,14 +1123,32 @@ if (canvas && room) {
     scene.add(desk);
     box(desk, [6.35, 0.18, 1.72], [0, 1.75, 0], materials.wood);
     box(desk, [6.12, 0.035, 1.52], [0, 1.858, 0], materials.darkMetal);
-    box(desk, [0.12, 1.68, 0.13], [-2.25, 0.84, -0.15], materials.darkMetal);
-    box(desk, [0.12, 1.68, 0.13], [2.25, 0.84, -0.15], materials.darkMetal);
-    box(desk, [0.12, 1.68, 0.13], [-2.25, 0.84, 0.55], materials.darkMetal);
-    box(desk, [0.12, 1.68, 0.13], [2.25, 0.84, 0.55], materials.darkMetal);
-    box(desk, [4.25, 0.045, 0.06], [0, 0.78, -0.15], materials.trim);
+    box(desk, [6.05, 0.018, 0.026], [0, 1.881, 0.78], materials.pictureGold, { castShadow: false });
+    box(desk, [5.98, 0.014, 0.022], [0, 1.881, -0.72], materials.pictureGold, { castShadow: false });
+    box(desk, [0.022, 0.014, 1.48], [-2.98, 1.881, 0.03], materials.pictureGold, { castShadow: false });
+    box(desk, [0.022, 0.014, 1.48], [2.98, 1.881, 0.03], materials.pictureGold, { castShadow: false });
+    box(desk, [2.7, 0.022, 1.02], [-0.28, 1.885, 0.08], materials.upholstery, { castShadow: false });
+    box(desk, [5.1, 0.018, 0.025], [0, 1.647, 0.84], trimGlow, { castShadow: false, receiveShadow: false });
+    box(desk, [1.38, 0.18, 0.045], [0, 1.625, 0.38], materials.wood);
+    box(desk, [0.3, 0.035, 0.04], [0, 1.625, 0.418], materials.pictureGold, { castShadow: false });
+
+    for (const side of [-1, 1]) {
+      const cabinetX = side * 2.25;
+      box(desk, [0.82, 1.57, 0.72], [cabinetX, 0.865, 0.04], materials.darkMetal);
+      box(desk, [0.88, 0.12, 0.78], [cabinetX, 0.13, 0.04], materials.wood);
+      box(desk, [0.025, 1.45, 0.022], [cabinetX - side * 0.35, 0.88, 0.416], materials.pictureGold, { castShadow: false });
+      box(desk, [0.025, 1.45, 0.022], [cabinetX + side * 0.35, 0.88, 0.416], materials.pictureGold, { castShadow: false });
+      for (let drawer = 0; drawer < 3; drawer += 1) {
+        const drawerY = 0.39 + drawer * 0.48;
+        box(desk, [0.66, 0.4, 0.055], [cabinetX, drawerY, 0.427], materials.wood);
+        box(desk, [0.2, 0.035, 0.045], [cabinetX, drawerY, 0.477], materials.pictureGold, { castShadow: false });
+        box(desk, [0.06, 0.045, 0.05], [cabinetX - 0.1, drawerY, 0.477], materials.pictureGold, { castShadow: false });
+        box(desk, [0.06, 0.045, 0.05], [cabinetX + 0.1, drawerY, 0.477], materials.pictureGold, { castShadow: false });
+      }
+    }
 
     const laptopGroup = new THREE.Group();
-    laptopGroup.position.set(-0.3, 1.86, 0.12);
+    laptopGroup.position.set(-0.3, 1.884, 0.12);
     laptopGroup.scale.setScalar(0.34);
     desk.add(laptopGroup);
     box(laptopGroup, [2.75, 0.12, 1.35], [0, 0.06, 0], materials.darkMetal);
@@ -1167,9 +1185,19 @@ if (canvas && room) {
     laptopDisplay.add(laptopScreen);
     const mouse = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 10), materials.darkMetal);
     mouse.scale.set(0.78, 0.48, 1.24);
-    mouse.position.set(1.38, 1.96, 0.5);
+    mouse.position.set(1.38, 1.99, 0.5);
     mouse.castShadow = true;
     desk.add(mouse);
+    const penCup = new THREE.Mesh(new THREE.CylinderGeometry(0.105, 0.09, 0.22, 20), materials.ceramic);
+    penCup.position.set(2.62, 2.0, 0.24);
+    penCup.castShadow = true;
+    desk.add(penCup);
+    for (let index = 0; index < 3; index += 1) {
+      const pen = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.015, 0.38, 8), materials.pictureGold);
+      pen.position.set(2.56 + index * 0.055, 2.25, 0.24 + (index % 2) * 0.025);
+      pen.rotation.z = (index - 1) * 0.12;
+      desk.add(pen);
+    }
     const deskLamp = new THREE.Group();
     deskLamp.position.set(-3.2, 1.9, 0.38);
     deskLamp.scale.setScalar(0.7);

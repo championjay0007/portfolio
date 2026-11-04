@@ -444,3 +444,74 @@ body.studio-lights-on .fallback-window { color: #302839; background: linear-grad
   .room-look-hint { gap: 5px; font-size: 6px; }
   .room-light-toggle { gap: 5px; padding-inline: 7px; font-size: 6px; }
 }
+
+body.studio-lights-on {
+  color-scheme: light;
+  --bg: #f7f3ed;
+  --bg-soft: #efe9df;
+  --panel: #fffaf3;
+  --line: rgba(67, 55, 70, .14);
+  --line-bright: rgba(67, 55, 70, .25);
+  --text: #302b35;
+  --muted: #685f6d;
+  --dim: #837987;
+  --blue: #536ca8;
+  --blue-bright: #4965a8;
+  --violet: #805d9c;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color .6s ease, color .6s ease;
+}
+body.studio-lights-on::before { opacity: .06; }
+body.studio-lights-on .site-header { background: linear-gradient(180deg,rgba(249,245,239,.98),rgba(249,245,239,.82)); border-bottom-color: var(--line); }
+body.studio-lights-on .brand, body.studio-lights-on .brand-name { color: var(--text); }
+body.studio-lights-on .brand-name span, body.studio-lights-on .primary-nav a { color: var(--muted); }
+body.studio-lights-on .primary-nav .nav-contact { color: var(--text); border-color: var(--line-bright); }
+body.studio-lights-on .menu-toggle { border-color: var(--line-bright); }
+body.studio-lights-on .menu-toggle span { background: var(--text); }
+body.studio-lights-on .room-experience.is-light-on .room-kicker { color: #51445d; }
+body.studio-lights-on .room-experience.is-light-on .room-intro h1 { color: #302b35; text-shadow: 0 4px 34px rgba(255,255,255,.55); }
+body.studio-lights-on .room-experience.is-light-on .room-intro p { color: #5f5665; text-shadow: 0 2px 18px rgba(255,255,255,.55); }
+body.studio-lights-on .hero-eyebrow { color: var(--muted); }
+body.studio-lights-on .hero-description { color: #635b66; }
+body.studio-lights-on .button-quiet { color: var(--text); border-color: var(--line-bright); }
+body.studio-lights-on .scene-label, body.studio-lights-on .scene-coordinate, body.studio-lights-on .scroll-cue { color: #655f70; }
+body.studio-lights-on .float-tag { color: #373344; background: rgba(255,251,245,.86); border-color: var(--line-bright); box-shadow: 0 9px 30px rgba(67,55,70,.12); }
+body.studio-lights-on .intro-strip { color: var(--muted); border-color: var(--line); }
+body.studio-lights-on .about-art { background: radial-gradient(ellipse at 55% 48%,rgba(128,93,156,.16),transparent 49%),linear-gradient(135deg,#eee7ef,#f8f4ec 75%); border-color: var(--line); }
+body.studio-lights-on .about-art-label { color: #51445d; }
+body.studio-lights-on .about-art-coordinate, body.studio-lights-on .muted-title { color: var(--muted); }
+body.studio-lights-on .body-large { color: #554d59 !important; }
+body.studio-lights-on .about-detail { background: linear-gradient(120deg,rgba(83,108,168,.08),rgba(128,93,156,.05)); }
+body.studio-lights-on .about-capabilities span, body.studio-lights-on .tech-chip, body.studio-lights-on .dialog-tags span { color: #554d59; border-color: var(--line-bright); }
+body.studio-lights-on .expertise-card { background: rgba(255,252,247,.7); }
+body.studio-lights-on .expertise-card:hover { background: #fffdf9; border-color: rgba(83,108,168,.36); }
+body.studio-lights-on .expertise-icon { border-color: rgba(83,108,168,.24); background: rgba(83,108,168,.07); }
+body.studio-lights-on .expertise-card:hover .expertise-icon { background: rgba(83,108,168,.13); }
+body.studio-lights-on .filter-button:hover, body.studio-lights-on .filter-button.is-active { color: var(--text); border-color: rgba(83,108,168,.38); background: rgba(83,108,168,.08); }
+body.studio-lights-on .project-art { border-color: var(--line); }
+body.studio-lights-on .tech-section { background: radial-gradient(ellipse at 77% 50%,rgba(128,93,156,.1),transparent 46%),#efe9e2; border-color: var(--line); }
+body.studio-lights-on .tech-section, body.studio-lights-on .process-section, body.studio-lights-on .contact-section, body.studio-lights-on .site-footer { transition: background .6s ease, border-color .6s ease, color .6s ease; }
+body.studio-lights-on .tech-chip { background: rgba(255,251,245,.92); box-shadow: 0 9px 26px rgba(67,55,70,.12); }
+body.studio-lights-on .tech-chip:hover, body.studio-lights-on .tech-chip:focus-visible { color: #455f9d; background: #fffdf9; }
+body.studio-lights-on .orbit-ring { border-color: rgba(83,108,168,.22); }
+body.studio-lights-on .orbit-ring-two { border-color: rgba(128,93,156,.16); }
+body.studio-lights-on .orbit-center { color: #f8f5f0; }
+body.studio-lights-on .service-row:hover { background: rgba(83,108,168,.06); }
+body.studio-lights-on .process-section { background: linear-gradient(180deg,#f0ebe4,#f8f4ed); border-color: var(--line); }
+body.studio-lights-on .process-marker { background: var(--bg); }
+body.studio-lights-on .number-label { color: var(--muted); }
+body.studio-lights-on .contact-section { background: #efe9e2; border-color: var(--line); }
+body.studio-lights-on .contact-form label { color: #554d59; }
+body.studio-lights-on .contact-form input, body.studio-lights-on .contact-form textarea { color: var(--text); }
+body.studio-lights-on .contact-form input::placeholder, body.studio-lights-on .contact-form textarea::placeholder { color: #827987; }
+body.studio-lights-on .whatsapp-link { color: #4c6858; }
+body.studio-lights-on .site-footer { background: #e9e3dc; border-color: var(--line); }
+body.studio-lights-on .footer-social a, body.studio-lights-on .footer-bottom a { color: var(--muted); }
+body.studio-lights-on .footer-bottom { color: var(--dim); border-color: var(--line); }
+body.studio-lights-on .project-dialog { color: var(--text); background: #fffaf3; border-color: var(--line-bright); }
+body.studio-lights-on .project-dialog::backdrop { background: rgba(48,43,53,.42); }
+body.studio-lights-on .dialog-close { color: var(--text); background: rgba(255,250,243,.9); border-color: var(--line-bright); }
+body.studio-lights-on .room-experience.is-light-on .room-tour-toggle { color: #4a3e50; background: rgba(255,251,246,.86); border-color: rgba(105,83,125,.25); }
+body.studio-lights-on .room-experience.is-light-on .room-tour-toggle:hover, body.studio-lights-on .room-experience.is-light-on .room-tour-toggle[aria-pressed="true"] { color: #764e25; background: #fff5dc; border-color: rgba(194,145,67,.62); }
+body.studio-lights-on .room-experience.is-light-on .room-tour-icon { color: #d2963b; }
