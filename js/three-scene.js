@@ -4,6 +4,7 @@ const fallback = document.querySelector(".room-fallback");
 const roomLightToggle = document.querySelector(".room-light-toggle");
 const zoomControls = document.querySelector(".room-zoom-controls");
 const zoomLevel = document.querySelector(".room-zoom-level");
+const roomTourToggle = document.querySelector(".room-tour-toggle");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 let changeRoomLighting = () => {};
 
@@ -72,6 +73,10 @@ if (canvas && room) {
     let lastPointerX = 0;
     let arrivalStart = null;
     let arrivalPlayed = false;
+    let roomTourPlaying = false;
+    let nextRoomTourAt = 0;
+    const roomTourInterval = 6.5;
+    const roomTourWalls = ["studio", "about", "services", "contact"];
     let lightsOn = false;
     let lightBlend = 0;
     let targetLightBlend = 0;
@@ -1124,11 +1129,29 @@ if (canvas && room) {
     box(desk, [0.12, 1.68, 0.13], [2.25, 0.84, 0.55], materials.darkMetal);
     box(desk, [4.25, 0.045, 0.06], [0, 0.78, -0.15], materials.trim);
 
-    const monitorGroup = new THREE.Group();
-    monitorGroup.position.set(1.5, 1.8, 0.42);
-    monitorGroup.scale.setScalar(0.32);
-    desk.add(monitorGroup);
-    box(monitorGroup, [3.2, 1.88, 0.16], [0, 1.21, 0], materials.darkMetal);
+    const laptopGroup = new THREE.Group();
+    laptopGroup.position.set(-0.3, 1.86, 0.12);
+    laptopGroup.scale.setScalar(0.34);
+    desk.add(laptopGroup);
+    box(laptopGroup, [2.75, 0.12, 1.35], [0, 0.06, 0], materials.darkMetal);
+    box(laptopGroup, [2.66, 0.025, 1.25], [0, 0.128, 0], materials.trim, { castShadow: false });
+    for (let row = 0; row < 4; row += 1) {
+      for (let column = 0; column < 13; column += 1) {
+        box(
+          laptopGroup,
+          [0.115, 0.015, 0.11],
+          [-0.73 + column * 0.122, 0.15, -0.31 + row * 0.13],
+          trimGlow,
+          { castShadow: false, receiveShadow: false }
+        );
+      }
+    }
+    box(laptopGroup, [0.55, 0.014, 0.31], [0, 0.15, 0.42], materials.darkMetal, { castShadow: false });
+    const laptopDisplay = new THREE.Group();
+    laptopDisplay.position.set(0, 0.12, -0.57);
+    laptopDisplay.rotation.x = -0.12;
+    laptopGroup.add(laptopDisplay);
+    box(laptopDisplay, [2.55, 1.48, 0.09], [0, 0.73, -0.025], materials.darkMetal);
     const monitorTexture = makeWallTexture(
       "hello",
       "DESIGN.\nBUILD.\nMAKE IT MATTER.",
@@ -1136,21 +1159,12 @@ if (canvas && room) {
       ["Thoughtful digital products,", "made to move your business forward."],
       "#a9bbff"
     );
-    const monitorScreen = new THREE.Mesh(
-      new THREE.PlaneGeometry(3.02, 1.7),
+    const laptopScreen = new THREE.Mesh(
+      new THREE.PlaneGeometry(2.37, 1.3),
       new THREE.MeshBasicMaterial({ map: monitorTexture, toneMapped: false })
     );
-    monitorScreen.position.set(0, 1.21, 0.086);
-    monitorGroup.add(monitorScreen);
-    box(monitorGroup, [0.13, 0.54, 0.12], [0, 0.12, -0.03], materials.darkMetal);
-    box(monitorGroup, [0.95, 0.08, 0.48], [0, -0.15, 0.03], materials.trim);
-    const keyboard = box(desk, [1.9, 0.065, 0.53], [0, 1.94, 0.47], materials.darkMetal);
-    keyboard.rotation.x = -0.04;
-    for (let row = 0; row < 4; row += 1) {
-      for (let column = 0; column < 13; column += 1) {
-        box(desk, [0.09, 0.012, 0.065], [-0.81 + column * 0.135, 1.98, 0.28 + row * 0.12], trimGlow, { castShadow: false, receiveShadow: false });
-      }
-    }
+    laptopScreen.position.set(0, 0.73, 0.025);
+    laptopDisplay.add(laptopScreen);
     const mouse = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 10), materials.darkMetal);
     mouse.scale.set(0.78, 0.48, 1.24);
     mouse.position.set(1.38, 1.96, 0.5);
@@ -1364,7 +1378,7 @@ if (canvas && room) {
       return amount * amount * (3 - 2 * amount);
     }
 
-    function setWall(name, announce = true) {
+    function setWall(name, announce = true, shouldRender = true) {
       const angle = wallAngles[name];
       if (angle === undefined) return;
       const difference = THREE.MathUtils.euclideanModulo(angle - targetYaw + Math.PI, Math.PI * 2) - Math.PI;
@@ -1379,12 +1393,40 @@ if (canvas && room) {
         const button = wallButtons.find((item) => item.dataset.roomWall === name);
         announcement.textContent = `Looking toward the ${button?.textContent.trim() || name} wall.`;
       }
-      requestRender();
+      if (shouldRender) requestRender();
     }
     wallButtons.forEach((button) => {
-      button.addEventListener("click", () => setWall(button.dataset.roomWall));
+      button.addEventListener("click", () => {
+        stopRoomTour();
+        setWall(button.dataset.roomWall);
+      });
+    });
+    function updateRoomTourControl() {
+      if (!roomTourToggle) return;
+      roomTourToggle.setAttribute("aria-pressed", String(roomTourPlaying));
+      roomTourToggle.setAttribute("aria-label", roomTourPlaying ? "Pause continuous room tour" : "Play continuous room tour");
+      roomTourToggle.querySelector(".room-tour-icon").textContent = roomTourPlaying ? "Ⅱ" : "▶";
+      roomTourToggle.querySelector(".room-tour-label").textContent = roomTourPlaying ? "PAUSE TOUR" : "PLAY TOUR";
+    }
+    function stopRoomTour() {
+      if (!roomTourPlaying) return;
+      roomTourPlaying = false;
+      updateRoomTourControl();
+    }
+    roomTourToggle?.addEventListener("click", () => {
+      roomTourPlaying = !roomTourPlaying;
+      if (roomTourPlaying) {
+        const waitingForArrival = !reducedMotion.matches && (arrivalStart !== null || !arrivalPlayed);
+        nextRoomTourAt = clock.getElapsedTime() + (waitingForArrival ? 7 : 1.2);
+        if (announcement) announcement.textContent = "Continuous studio tour playing. It will visit each wall in turn; pause the tour or choose a wall to stop.";
+      } else if (announcement) {
+        announcement.textContent = "Continuous studio tour paused.";
+      }
+      updateRoomTourControl();
+      requestRender();
     });
     function setZoom(value) {
+      stopRoomTour();
       targetZoom = THREE.MathUtils.clamp(value, minZoom, maxZoom);
       if (zoomLevel) zoomLevel.value = `${Math.round(targetZoom * 100)}%`;
       const zoomInButton = zoomControls?.querySelector('[data-zoom="in"]');
@@ -1413,6 +1455,7 @@ if (canvas && room) {
       requestRender();
     };
     document.querySelector(".room-replay")?.addEventListener("click", () => {
+      stopRoomTour();
       if (reducedMotion.matches) {
         camera.position.copy(cameraSeat);
         if (isMobile) selectedCameraPosition.copy(mobileCameraPositions.studio);
@@ -1468,6 +1511,7 @@ if (canvas && room) {
     room.addEventListener("pointermove", (event) => {
       if (event.target !== canvas) return;
       if (event.pointerType === "touch") return;
+      stopRoomTour();
       if (isDragging) {
         targetYaw -= (event.clientX - lastPointerX) * 0.008;
         lastPointerX = event.clientX;
@@ -1484,6 +1528,7 @@ if (canvas && room) {
 
     room.addEventListener("pointerdown", (event) => {
       if (event.target.closest(".room-bottom, .site-header") || event.pointerType === "touch") return;
+      stopRoomTour();
       isDragging = true;
       lastPointerX = event.clientX;
       room.classList.add("is-turning");
@@ -1511,6 +1556,7 @@ if (canvas && room) {
     }, { passive: true });
     room.addEventListener("touchmove", (event) => {
       if (!event.touches.length || event.target.closest(".room-bottom")) return;
+      stopRoomTour();
       if (event.touches.length > 1) {
         const nextDistance = Math.hypot(
           event.touches[0].clientX - event.touches[1].clientX,
@@ -1535,10 +1581,12 @@ if (canvas && room) {
       if (!active || event.target.matches("input, textarea, select, [contenteditable='true']")) return;
       if (event.key === "ArrowLeft") {
         event.preventDefault();
+        stopRoomTour();
         targetYaw += Math.PI / 2;
         requestRender();
       } else if (event.key === "ArrowRight") {
         event.preventDefault();
+        stopRoomTour();
         targetYaw -= Math.PI / 2;
         requestRender();
       } else if (event.key === "+" || event.key === "=") {
@@ -1603,6 +1651,14 @@ if (canvas && room) {
         }
         if (studioStoryProgress === 1) studioStoryStart = null;
       }
+      if (roomTourPlaying && arrivalStart === null && elapsed >= nextRoomTourAt) {
+        const currentWall = nearestWall(targetYaw);
+        const currentIndex = roomTourWalls.indexOf(currentWall);
+        const nextWall = roomTourWalls[(currentIndex + 1) % roomTourWalls.length];
+        setWall(nextWall, false, false);
+        nextRoomTourAt = elapsed + roomTourInterval;
+        if (announcement) announcement.textContent = `Continuous studio tour: looking toward the ${nextWall} wall.`;
+      }
       if (reducedMotion.matches && !arrivalPlayed) {
         camera.position.copy(cameraSeat);
         if (isMobile) selectedCameraPosition.copy(mobileCameraPositions[nearestWall(targetYaw)]);
@@ -1651,7 +1707,7 @@ if (canvas && room) {
       const lookHeightMoving = !isMobile && Math.abs(targetLook.y - wallLookHeight) > 0.01;
       const lightingInProgress = Math.abs(targetLightBlend - lightBlend) > 0.005;
       const zoomMoving = Math.abs(camera.fov - targetFov) > 0.01;
-      if (arrivalInProgress || studioStoryStart !== null || lookingInProgress || cameraMoving || lookHeightMoving || lightingInProgress || zoomMoving) frame = requestAnimationFrame(renderFrame);
+      if (arrivalInProgress || studioStoryStart !== null || roomTourPlaying || lookingInProgress || cameraMoving || lookHeightMoving || lightingInProgress || zoomMoving) frame = requestAnimationFrame(renderFrame);
     }
 
     function requestRender() {
