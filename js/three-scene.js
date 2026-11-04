@@ -632,6 +632,7 @@ if (canvas && room) {
     const studioWallCopy = makeStudioWallCopy();
     let studioStoryStart = null;
     let studioStoryLastDraw = -Infinity;
+    let serviceInscription = null;
 
     function makeDisplay(parent, key, width, height, position, rotationY = 0) {
       const frame = new THREE.Group();
@@ -660,8 +661,125 @@ if (canvas && room) {
     }
 
     makeDisplay(roomShell, "about", 5.8, 3.5, [7.28, 4.2, 6.3], -Math.PI / 2);
-    makeDisplay(roomShell, "services", 5.8, 3.5, [-7.28, 4.2, 6.3], Math.PI / 2);
     makeDisplay(roomShell, "contact", 4.3, 2.6, [0.2, 2, 9.28], Math.PI);
+
+    async function addServiceInscription() {
+      try {
+        const [{ FontLoader }, { TextGeometry }] = await Promise.all([
+          import("three/addons/loaders/FontLoader.js"),
+          import("three/addons/geometries/TextGeometry.js")
+        ]);
+        const font = await new FontLoader().loadAsync(
+          "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/fonts/helvetiker_regular.typeface.json"
+        );
+        const engraving = new THREE.Group();
+        engraving.position.set(-7.28, 4.2, 6.3);
+        engraving.rotation.y = Math.PI / 2;
+        roomShell.add(engraving);
+
+        const plaque = new THREE.Mesh(
+          new THREE.BoxGeometry(6.08, 3.78, 0.12),
+          new THREE.MeshStandardMaterial({ color: 0x111522, roughness: 0.48, metalness: 0.38 })
+        );
+        plaque.position.z = -0.01;
+        plaque.castShadow = true;
+        plaque.receiveShadow = true;
+        engraving.add(plaque);
+
+        const borderMaterial = new THREE.MeshStandardMaterial({
+          color: 0x788eff,
+          roughness: 0.3,
+          metalness: 0.62,
+          emissive: 0x18244a,
+          emissiveIntensity: 0.35
+        });
+        const edge = 0.025;
+        const borderParts = [
+          [[5.86, edge, edge], [0, 1.81, 0.058]],
+          [[5.86, edge, edge], [0, -1.81, 0.058]],
+          [[edge, 3.62, edge], [-2.92, 0, 0.058]],
+          [[edge, 3.62, edge], [2.92, 0, 0.058]]
+        ];
+        borderParts.forEach(([size, position]) => {
+          const bar = new THREE.Mesh(new THREE.BoxGeometry(...size), borderMaterial);
+          bar.position.set(...position);
+          engraving.add(bar);
+        });
+
+        const textMaterial = new THREE.MeshStandardMaterial({
+          color: 0xd8d9e5,
+          roughness: 0.32,
+          metalness: 0.68
+        });
+        const accentMaterial = new THREE.MeshStandardMaterial({
+          color: 0xa9bbff,
+          roughness: 0.28,
+          metalness: 0.62,
+          emissive: 0x252f63,
+          emissiveIntensity: 0.28
+        });
+
+        function addInscribedLine(text, y, size, material, options = {}) {
+          const geometry = new TextGeometry(text, {
+            font,
+            size,
+            depth: options.depth ?? 0.028,
+            curveSegments: 4,
+            bevelEnabled: true,
+            bevelThickness: 0.006,
+            bevelSize: 0.004,
+            bevelSegments: 2
+          });
+          geometry.computeBoundingBox();
+          const width = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+          geometry.translate(-width / 2, 0, 0);
+          const inscription = new THREE.Mesh(geometry, material);
+          inscription.position.set(0, y, 0.052);
+          inscription.castShadow = true;
+          inscription.receiveShadow = true;
+          engraving.add(inscription);
+          return inscription;
+        }
+
+        addInscribedLine("WHAT I DO", 1.35, 0.17, accentMaterial);
+        addInscribedLine("DIGITAL SERVICES", 0.91, 0.38, textMaterial);
+        const divider = new THREE.Mesh(
+          new THREE.BoxGeometry(1.02, 0.012, 0.018),
+          borderMaterial
+        );
+        divider.position.set(0, 0.71, 0.06);
+        engraving.add(divider);
+
+        const serviceLines = [
+          "CUSTOM WEBSITE DEVELOPMENT",
+          "WEB APPLICATIONS & SAAS",
+          "BUSINESS SOFTWARE & AUTOMATION",
+          "E-COMMERCE & WORDPRESS",
+          "LARAVEL, PHP & BACKEND SYSTEMS",
+          "PYTHON & DJANGO DEVELOPMENT",
+          "UI/UX DESIGN & DIGITAL STRATEGY",
+          "SEO & WEBSITE OPTIMIZATION"
+        ];
+        serviceLines.forEach((service, index) => {
+          const y = 0.39 - index * 0.285;
+          addInscribedLine(`${String(index + 1).padStart(2, "0")}  /  ${service}`, y, 0.142, index % 2 ? textMaterial : accentMaterial, {
+            depth: 0.022
+          });
+        });
+
+        const halo = registerRoomLight(new THREE.PointLight(0x7d91ff, 3.8, 6), 7);
+        halo.position.set(0, 0.3, 0.72);
+        engraving.add(halo);
+        serviceInscription = engraving;
+        requestRender();
+      } catch (error) {
+        console.warn("Could not load 3D service lettering; using the illustrated wall display instead.", error);
+        makeDisplay(roomShell, "services", 5.8, 3.5, [-7.28, 4.2, 6.3], Math.PI / 2);
+        requestRender();
+      }
+    }
+
+    void addServiceInscription();
 
     const photoTextures = [];
     const photoLoader = new THREE.TextureLoader();
@@ -1444,6 +1562,11 @@ if (canvas && room) {
       renderer.dispose();
       Object.values(wallTextures).forEach((texture) => texture.dispose());
       studioWallCopy.texture.dispose();
+      if (serviceInscription) {
+        serviceInscription.traverse((object) => {
+          if (object.isMesh) object.geometry.dispose();
+        });
+      }
       monitorTexture.dispose();
       photoTextures.forEach((texture) => texture.dispose());
     }, { once: true });
