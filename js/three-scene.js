@@ -384,12 +384,13 @@ if (canvas && room) {
         context.fillText("LET'S CONNECT.", 72, 212);
         context.fillStyle = "#9ca4b9";
         context.font = "21px 'Manrope', 'Segoe UI', sans-serif";
-        context.fillText("Tell me what you're building. Let's make it real.", 74, 258);
+        context.fillText("Have a goal, a challenge, or a new idea?", 74, 258);
+        context.fillText("Let's discuss how I can help bring it to life.", 74, 292);
 
         const contactRows = [
           { label: "EMAIL", value: "championjaytech@gmail.com", y: 352, icon: "email" },
           { label: "CALL / WHATSAPP", value: "+234 913 837 0625", y: 458, icon: "phone" },
-          { label: "SOCIALS", value: "@championjaytech", y: 564, icon: "social" }
+          { label: "SOCIAL", value: "@championjaytech", y: 564, icon: "social" }
         ];
         contactRows.forEach(({ label, value, y, icon }) => {
           context.strokeStyle = "rgba(208,168,255,.25)";
@@ -449,9 +450,16 @@ if (canvas && room) {
         context.fillStyle = "#9ca4b9";
         const lineFontSize = key === "studio" ? 25 : lines.length > 4 ? 18 : 22;
         const lineSpacing = key === "studio" ? 35 : lines.length > 4 ? 34 : 41;
-        context.font = `${lineFontSize}px 'Manrope', 'Segoe UI', sans-serif`;
+        let lineY = lineStart;
         lines.forEach((line, index) => {
-          context.fillText(line, 74, lineStart + index * lineSpacing);
+          const isSectionLabel = line.startsWith("MY ");
+          if (isSectionLabel && index > 0) lineY += 7;
+          context.fillStyle = isSectionLabel ? accent : "#9ca4b9";
+          context.font = isSectionLabel
+            ? "500 15px 'DM Mono', monospace"
+            : `${lineFontSize}px 'Manrope', 'Segoe UI', sans-serif`;
+          context.fillText(line, 74, lineY);
+          lineY += lineSpacing;
         });
       }
       context.fillStyle = accent;
@@ -588,14 +596,13 @@ if (canvas && room) {
         kicker: "02  /  PURPOSE, PROGRESS AND LASTING IMPACT",
         lines: [
           "MY MISSION",
-          "Build meaningful digital products",
-          "that empower businesses, improve",
-          "lives and create opportunities",
-          "without boundaries.",
+          "My mission is to build meaningful digital",
+          "products that empower businesses, improve",
+          "lives, and create opportunities worldwide.",
           "MY VISION",
-          "Become a leading force in technology",
-          "and digital innovation, creating",
-          "solutions with lasting global impact."
+          "My vision is to become a global force in",
+          "technology and digital innovation, creating",
+          "solutions with a lasting global impact."
         ],
         accent: "#c5a8ff"
       },
@@ -604,12 +611,12 @@ if (canvas && room) {
         kicker: "03  /  THE RIGHT EXPERTISE FOR YOUR NEXT MOVE",
         lines: [
           "Custom websites and web applications.",
-          "Business software, SaaS and automation.",
-          "E-commerce, WordPress and UI/UX design.",
-          "Laravel, PHP, Python and Django.",
-          "SEO, digital strategy and consulting.",
+          "Business software, SaaS products, and automation.",
+          "E-commerce, WordPress, and user-focused design.",
+          "Backend development with Laravel, PHP, and Django.",
+          "SEO, digital strategy, and technical consulting.",
           "Business plans and project proposals.",
-          "Thoughtful digital solutions, built for you."
+          "Digital solutions thoughtfully built around your needs."
         ],
         accent: "#9cbcff"
       },
@@ -617,13 +624,13 @@ if (canvas && room) {
         title: "LET'S\nCOLLABORATE.",
         kicker: "04  /  LET'S TURN YOUR NEXT IDEA INTO IMPACT",
         lines: [
-          "Have a goal, a challenge, or an idea?",
-          "Let's talk about what success looks like.",
+          "Have a goal, a challenge, or a new idea?",
+          "Let's discuss how the right solution can help.",
           "Email: championjaytech@gmail.com",
-          "Socials: @championjaytech",
+          "Social: @championjaytech",
           "Thoughtful design. Reliable technology.",
-          "A digital solution built around you.",
-          "Start a conversation today."
+          "Digital solutions designed around your goals.",
+          "Get in touch to start a conversation."
         ],
         accent: "#d0a8ff"
       }
