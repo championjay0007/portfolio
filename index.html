@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=room-tour-9">
-    <link rel="stylesheet" href="css/responsive.css?v=room-tour-4">
+    <link rel="stylesheet" href="css/style.css?v=projects-6">
+    <link rel="stylesheet" href="css/responsive.css?v=projects-3">
     <script type="importmap">
       {
         "imports": {
@@ -22,9 +22,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
     <script type="module" src="js/three-scene.js?v=room-tour-39"></script>
+    <script type="module" src="js/tech-globe.js?v=globe-6"></script>
+    <script type="module" src="js/process-scene.js?v=process-4"></script>
     <script src="js/animations.js?v=room-tour" defer></script>
     <script src="js/interactions.js?v=room-tour" defer></script>
-    <script src="js/main.js?v=room-tour-3" defer></script>
+    <script src="js/main.js?v=projects-6" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -65,6 +67,7 @@
           <span class="room-kicker"><i class="status-pulse"></i> CHAMPIONJAY TECHNOLOGY · DIGITAL STUDIO</span>
           <h1 id="room-title">Come on <span>in.</span></h1>
           <p>A portfolio you can walk into.<br>Find a wall. Stay a while.</p>
+          <a class="room-work-link" href="#work">Explore selected work <span aria-hidden="true">↘</span></a>
         </div>
         <div class="room-availability"><span class="status-pulse"></span> AVAILABLE FOR PROJECTS WORLDWIDE</div>
         <div class="room-zoom-controls" role="group" aria-label="Zoom the 3D room. Use the plus and minus buttons, mouse wheel, or pinch.">
@@ -193,19 +196,19 @@
       </section>
 
       <section class="section work-section section-shell" id="work">
-        <div class="section-heading reveal"><span class="eyebrow">03 — FEATURED PROJECTS</span><span class="section-index">A FEW THINGS I'VE BEEN BUILDING</span></div>
+        <div class="section-heading reveal"><span class="eyebrow">03 — SELECTED PROJECTS</span><span class="section-index">WEB PLATFORMS · SYSTEMS · STOREFRONTS</span></div>
         <div class="section-title-row work-title-row reveal">
-          <h2>Made with purpose.<br><span class="muted-title">Designed to make a difference.</span></h2>
-          <p>Explorations and project placeholders. Details, links and imagery are easy to update as work goes live.</p>
+          <h2>Real work.<br><span class="muted-title">Built for real-world needs.</span></h2>
+          <p>Babatunde James is a full-stack developer with 7+ years of practical experience building websites, web applications, business platforms and software products.</p>
         </div>
         <div class="project-filters reveal" role="group" aria-label="Filter projects">
-          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All work <span>07</span></button>
-          <button class="filter-button" type="button" data-filter="applications" aria-pressed="false">Applications</button>
-          <button class="filter-button" type="button" data-filter="platforms" aria-pressed="false">Platforms</button>
-          <button class="filter-button" type="button" data-filter="experiments" aria-pressed="false">Experiments</button>
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All projects <span data-filter-count></span></button>
+          <button class="filter-button" type="button" data-filter="web-applications" aria-pressed="false">Web applications <span data-filter-count></span></button>
+          <button class="filter-button" type="button" data-filter="corporate-websites" aria-pressed="false">Corporate websites <span data-filter-count></span></button>
+          <button class="filter-button" type="button" data-filter="e-commerce" aria-pressed="false">E-commerce <span data-filter-count></span></button>
+          <button class="filter-button" type="button" data-filter="management-systems" aria-pressed="false">Management systems <span data-filter-count></span></button>
         </div>
         <div class="projects-grid" id="projects-grid" aria-live="polite"></div>
-        <p class="project-note"><span>↗</span> Project descriptions are illustrative placeholders. No client metrics or testimonials are claimed.</p>
       </section>
 
       <section class="tech-section" id="technology">
@@ -214,24 +217,26 @@
             <span class="eyebrow">SKILLS &amp; TECHNOLOGIES / TOOLKIT</span>
             <h2>The right tool.<br><span class="serif-accent">For the right idea.</span></h2>
             <p>Good technology is invisible. This is the toolkit I reach for to make digital products feel seamless, fast and ready to grow.</p>
-            <span class="tech-instruction">HOVER TO EXPLORE <i>↗</i></span>
+            <span class="tech-instruction">13 TECHNOLOGIES / 01 TOOLKIT</span>
+            <output class="tech-selection" aria-live="polite">Technology toolkit</output>
           </div>
-          <div class="tech-orbit reveal" aria-label="Interactive visualization of technologies used">
-            <div class="orbit-ring orbit-ring-one"></div><div class="orbit-ring orbit-ring-two"></div>
-            <span class="orbit-center">CJ<span>.</span></span>
-            <button class="tech-chip chip-php" type="button">PHP</button>
-            <button class="tech-chip chip-laravel" type="button">Laravel</button>
-            <button class="tech-chip chip-python" type="button">Python</button>
-            <button class="tech-chip chip-django" type="button">Django</button>
-            <button class="tech-chip chip-js" type="button">JavaScript</button>
-            <button class="tech-chip chip-html" type="button">HTML5</button>
-            <button class="tech-chip chip-css" type="button">CSS3</button>
-            <button class="tech-chip chip-bootstrap" type="button">Bootstrap</button>
-            <button class="tech-chip chip-mysql" type="button">MySQL</button>
-            <button class="tech-chip chip-git" type="button">Git</button>
-            <button class="tech-chip chip-github" type="button">GitHub</button>
-            <button class="tech-chip chip-three" type="button">Three.js</button>
-            <button class="tech-chip chip-wordpress" type="button">WordPress</button>
+          <div class="tech-orbit reveal" role="group" aria-label="Technology skills globe">
+            <canvas class="tech-globe-canvas" aria-hidden="true"></canvas>
+            <div class="tech-skill-list" role="group" aria-label="Technology skills">
+              <button class="tech-skill" type="button">PHP</button>
+              <button class="tech-skill" type="button">Laravel</button>
+              <button class="tech-skill" type="button">Python</button>
+              <button class="tech-skill" type="button">Django</button>
+              <button class="tech-skill" type="button">JavaScript</button>
+              <button class="tech-skill" type="button">HTML5</button>
+              <button class="tech-skill" type="button">CSS3</button>
+              <button class="tech-skill" type="button">Bootstrap</button>
+              <button class="tech-skill" type="button">MySQL</button>
+              <button class="tech-skill" type="button">Git</button>
+              <button class="tech-skill" type="button">GitHub</button>
+              <button class="tech-skill" type="button">Three.js</button>
+              <button class="tech-skill" type="button">WordPress</button>
+            </div>
           </div>
         </div>
       </section>
@@ -255,17 +260,18 @@
       </section>
 
       <section class="process-section" id="process">
+        <canvas class="process-canvas" aria-hidden="true"></canvas>
         <div class="section-shell">
           <div class="section-heading reveal"><span class="eyebrow">05 — MY APPROACH</span><span class="section-index">GOOD WORK, BUILT TOGETHER</span></div>
           <div class="process-heading reveal"><h2>From the first <span class="serif-accent">what if</span><br>to the final <span class="serif-accent">let's go.</span></h2><p>A transparent, collaborative process. No black boxes, no surprises—just thoughtful work at every step.</p></div>
           <div class="process-timeline">
-            <article class="process-step reveal"><span class="process-count">01</span><span class="process-marker"></span><h3>Discovery</h3><p>Understand your goals, audience and what success looks like.</p></article>
-            <article class="process-step reveal"><span class="process-count">02</span><span class="process-marker"></span><h3>Planning</h3><p>Choose the right direction, technology and project milestones.</p></article>
-            <article class="process-step reveal"><span class="process-count">03</span><span class="process-marker"></span><h3>Design</h3><p>Shape a clear, considered experience for the people who use it.</p></article>
-            <article class="process-step reveal"><span class="process-count">04</span><span class="process-marker"></span><h3>Development</h3><p>Bring the design to life with reliable, purposeful engineering.</p></article>
-            <article class="process-step reveal"><span class="process-count">05</span><span class="process-marker"></span><h3>Testing</h3><p>Check every detail across devices, browsers and real-world flows.</p></article>
-            <article class="process-step reveal"><span class="process-count">06</span><span class="process-marker"></span><h3>Deployment</h3><p>Launch with care and make sure everything is ready to go.</p></article>
-            <article class="process-step reveal"><span class="process-count">07</span><span class="process-marker"></span><h3>Support</h3><p>Stay supported as your product grows and your needs evolve.</p></article>
+            <article class="process-step reveal" tabindex="0"><span class="process-count">01</span><span class="process-marker"></span><h3>Discovery</h3><p>Understand your goals, audience and what success looks like.</p></article>
+            <article class="process-step reveal" tabindex="0"><span class="process-count">02</span><span class="process-marker"></span><h3>Planning</h3><p>Choose the right direction, technology and project milestones.</p></article>
+            <article class="process-step reveal" tabindex="0"><span class="process-count">03</span><span class="process-marker"></span><h3>Design</h3><p>Shape a clear, considered experience for the people who use it.</p></article>
+            <article class="process-step reveal" tabindex="0"><span class="process-count">04</span><span class="process-marker"></span><h3>Development</h3><p>Bring the design to life with reliable, purposeful engineering.</p></article>
+            <article class="process-step reveal" tabindex="0"><span class="process-count">05</span><span class="process-marker"></span><h3>Testing</h3><p>Check every detail across devices, browsers and real-world flows.</p></article>
+            <article class="process-step reveal" tabindex="0"><span class="process-count">06</span><span class="process-marker"></span><h3>Deployment</h3><p>Launch with care and make sure everything is ready to go.</p></article>
+            <article class="process-step reveal" tabindex="0"><span class="process-count">07</span><span class="process-marker"></span><h3>Support</h3><p>Stay supported as your product grows and your needs evolve.</p></article>
           </div>
         </div>
       </section>
@@ -331,10 +337,5 @@
       </div>
       <div class="footer-bottom section-shell"><span>© <span id="current-year"></span> CHAMPIONJAY TECHNOLOGY</span><span>DESIGNED WITH INTENTION. BUILT WITH CARE.</span><a href="#top">BACK TO TOP ↑</a></div>
     </footer>
-    <dialog class="project-dialog" id="project-dialog" aria-labelledby="dialog-title">
-      <button class="dialog-close" type="button" aria-label="Close project details">×</button>
-      <div class="dialog-art" aria-hidden="true"></div>
-      <div class="dialog-content"><span class="eyebrow dialog-category"></span><h2 id="dialog-title"></h2><p class="dialog-description"></p><div class="dialog-tags"></div><div class="dialog-links"></div></div>
-    </dialog>
   </body>
 </html>

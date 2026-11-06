@@ -16,14 +16,14 @@
       pointerY = event.clientY;
       dot.style.opacity = "1";
       ring.style.opacity = "1";
-      dot.style.transform = `translate(${pointerX - 2.5}px, ${pointerY - 2.5}px)`;
+      dot.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
       if (!cursorFrame) cursorFrame = requestAnimationFrame(moveRing);
     }, { passive: true });
 
     function moveRing() {
       ringX += (pointerX - ringX) * 0.18;
       ringY += (pointerY - ringY) * 0.18;
-      ring.style.transform = `translate(${ringX - 16}px, ${ringY - 16}px)`;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
       if (Math.abs(pointerX - ringX) > 0.3 || Math.abs(pointerY - ringY) > 0.3) {
         cursorFrame = requestAnimationFrame(moveRing);
       } else {
@@ -79,15 +79,6 @@
         card.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 4}deg) rotateY(${(x - 0.5) * 5}deg)`;
       }, { passive: true });
       card.addEventListener("pointerleave", () => { card.style.transform = ""; });
-    });
-
-    document.querySelectorAll(".tech-chip").forEach((chip) => {
-      chip.addEventListener("click", () => {
-        chip.animate(
-          [{ transform: "translateY(-4px) scale(1)" }, { transform: "translateY(-4px) scale(1.09)" }, { transform: "translateY(-4px) scale(1)" }],
-          { duration: 260, easing: "ease-out" }
-        );
-      });
     });
   };
 

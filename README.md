@@ -32,7 +32,7 @@ The site files live at the root of `https://github.com/championjay0007/portfolio
 ## Personalize
 
 1. The contact email is set to `championjaytech@gmail.com` in `js/main.js`. The phone and WhatsApp number is set to `2349138370625` (international digits, without `+`); update `portfolioConfig.whatsappNumber` to change it. Add verified social profile URLs when available. The social handle shown in the portfolio is `@championjaytech`.
-2. Edit the `projects` array in the same file. Each project supports `title`, `description`, `technologies`, `thumbnail`, `demoUrl` and `sourceUrl`, along with its category and generated-art style. Use an empty string until a real image or URL is available.
+2. Edit the `projects` array in the same file. Each project supports `title`, `categoryLabel`, `categories`, `description`, `technologies` and an optional `liveUrl`. Projects with a `liveUrl` show a lazy-loaded, sandboxed preview of the live website; the preview and live link open the site in a new tab. Projects without a public URL remain text-only. Add technologies only when confirmed. Category filters are derived from each project's `categories` list.
 3. Replace the dash placeholders in the achievements section in `index.html` only with verified figures.
 4. Update the copy and social platforms to match the final brand.
 5. To use your own screen photos, set paths such as `"./assets/images/skills.jpg"` in the `screenArtworkSources` map near the top of `js/three-scene.js`. The map supports `about`, `contact`, and `hello` (the desk monitor). The Studio headline is painted directly onto its wall. The Services wall uses nine individual 3D tiles arranged in a three-by-three grid, each with a matching dimensional icon and raised label.
@@ -49,4 +49,4 @@ The contact form validates its fields and opens a prefilled email in the visitor
 - Keyboard-accessible navigation, project details, form controls and skip link.
 - Reduced-motion support skips the arrival and wall-copy animations and renders a static seated character.
 - Three.js rendering pauses when the room is off-screen or the tab is hidden; pixel ratio and shadow quality are reduced on mobile.
-- CSS artwork keeps project previews intact without external image assets. Custom thumbnails use lazy-loaded images with a generated-art fallback.
+- Project previews load the supplied live websites in sandboxed iframes; no screenshot or placeholder imagery is used.

@@ -11,156 +11,115 @@
 
   const projects = [
     {
-      title: "Healthcare Management Portal",
-      description: "An illustrative concept for a healthcare portal, bringing patient information and everyday administrative workflows into one considered experience.",
-      category: "applications",
-      categoryLabel: "WEB APPLICATION",
-      technologies: ["UI/UX", "JavaScript", "Backend"],
-      thumbnail: "",
-      demoUrl: "",
-      sourceUrl: "",
-      artwork: "health",
-      accent: "#8da9ff",
-      glow: "rgba(91,126,255,.25)"
+      title: "Allegiance Heart & Home Care Management Portal",
+      categoryLabel: "HEALTHCARE TECHNOLOGY / MANAGEMENT SYSTEM",
+      categories: ["web-applications", "management-systems"],
+      description: "A digital platform for an aged care and disability support organization, combining a corporate website with management portal workflows for participant onboarding, document submissions, invoices, approvals, budget monitoring and workforce-related records.",
+      technologies: ["Laravel", "PHP", "MySQL", "Filament"],
+      liveUrl: "https://allegiancehearthomecare.com.au/"
     },
     {
-      title: "AI SaaS Platform",
-      description: "A placeholder exploration of an AI-enabled SaaS product, from a clear onboarding journey to an adaptable product dashboard.",
-      category: "platforms",
-      categoryLabel: "SAAS PLATFORM",
-      technologies: ["Product design", "Python", "JavaScript"],
-      thumbnail: "",
-      demoUrl: "",
-      sourceUrl: "",
-      artwork: "platform",
-      accent: "#b59cff",
-      glow: "rgba(153,111,255,.25)"
+      title: "Aged Care Link",
+      categoryLabel: "HEALTHCARE TECHNOLOGY / PROVIDER MATCHING",
+      categories: ["web-applications"],
+      description: "A Support at Home provider-matching platform designed to connect older Australians and their families with suitable care providers. It includes participant enquiry and referral processes, provider network workflows and information for people changing providers.",
+      technologies: ["Laravel", "PHP", "MySQL"],
+      liveUrl: "https://agedcarelink.com.au/"
     },
     {
-      title: "Business Management System",
-      description: "An illustrative business system concept for organizing operational information and making day-to-day work easier to navigate.",
-      category: "applications",
-      categoryLabel: "BUSINESS SOFTWARE",
-      technologies: ["Laravel", "MySQL", "Bootstrap"],
-      thumbnail: "",
-      demoUrl: "",
-      sourceUrl: "",
-      artwork: "dashboard",
-      accent: "#8bd6c0",
-      glow: "rgba(81,198,168,.2)"
+      title: "Regulated Services Advisory",
+      categoryLabel: "CORPORATE WEBSITE / PROFESSIONAL SERVICES",
+      categories: ["corporate-websites"],
+      description: "A professional corporate website presenting advisory services for aged care and NDIS providers, including information about compliance, governance, risk management and operational support.",
+      technologies: [],
+      liveUrl: "https://regulatedservicesadvisory.com.au/"
     },
     {
-      title: "E-commerce Platform",
-      description: "A storefront concept with a focus on product discovery, a calm shopping experience and a straightforward checkout journey.",
-      category: "platforms",
-      categoryLabel: "E-COMMERCE",
-      technologies: ["WordPress", "JavaScript", "UI/UX"],
-      thumbnail: "",
-      demoUrl: "",
-      sourceUrl: "",
-      artwork: "store",
-      accent: "#f0b495",
-      glow: "rgba(235,152,112,.2)"
+      title: "PECY UGO",
+      categoryLabel: "E-COMMERCE / FASHION & RETAIL",
+      categories: ["e-commerce"],
+      description: "An online fashion and footwear store presenting product categories, collections and shopping-related information.",
+      technologies: [],
+      liveUrl: "https://pecyugo.com/"
     },
     {
-      title: "Interactive 3D Portfolio",
-      description: "A creative web experiment exploring spatial interfaces, motion and interactive 3D storytelling in the browser.",
-      category: "experiments",
-      categoryLabel: "INTERACTIVE WEBSITE",
-      technologies: ["Three.js", "JavaScript", "CSS"],
-      thumbnail: "",
-      demoUrl: "",
-      sourceUrl: "",
-      artwork: "globe",
-      accent: "#b4a1ff",
-      glow: "rgba(139,113,255,.27)"
+      title: "Center-ECD",
+      categoryLabel: "EDUCATION / ENTERPRISE DEVELOPMENT",
+      categories: ["corporate-websites"],
+      description: "A human-capacity and enterprise development organization offering executive education, business incubation, youth programs and professional training.",
+      technologies: [],
+      liveUrl: "https://centerecd.org/"
     },
     {
-      title: "Chess Game Application",
-      description: "A chess application concept focused on a distraction-free board, clear game state and a polished play experience.",
-      category: "experiments",
-      categoryLabel: "GAME APPLICATION",
-      technologies: ["JavaScript", "HTML", "CSS"],
-      thumbnail: "",
-      demoUrl: "",
-      sourceUrl: "",
-      artwork: "chess",
-      accent: "#bdd1ff",
-      glow: "rgba(132,163,255,.23)"
+      title: "Lorem Foundation",
+      categoryLabel: "FOUNDATION / NONPROFIT WEBSITE",
+      categories: ["corporate-websites"],
+      description: "An organizational website providing an online presence for the foundation.",
+      technologies: [],
+      liveUrl: "https://loremfoundation.org/"
     },
     {
-      title: "Beat Maker / Music Production Application",
-      description: "A browser-based music-making concept with a tactile sequencer and a visual interface designed to invite experimentation.",
-      category: "experiments",
-      categoryLabel: "CREATIVE APPLICATION",
-      technologies: ["JavaScript", "Web Audio", "UI/UX"],
-      thumbnail: "",
-      demoUrl: "",
-      sourceUrl: "",
-      artwork: "music",
-      accent: "#e5a8ff",
-      glow: "rgba(192,111,255,.23)"
+      title: "Think Electric Africa",
+      categoryLabel: "ORGANIZATIONAL WEBSITE",
+      categories: ["corporate-websites"],
+      description: "An organizational website project presenting the identity and information of Think Electric Africa.",
+      technologies: [],
+      liveUrl: "https://thinkelectricafrica.org/"
+    },
+    {
+      title: "Childcare Management System",
+      categoryLabel: "SOFTWARE DEVELOPMENT / MANAGEMENT APPLICATION",
+      categories: ["web-applications", "management-systems"],
+      description: "A custom software project focused on childcare-related management and administrative processes.",
+      technologies: []
+    },
+    {
+      title: "DtalentHub",
+      categoryLabel: "WEB APPLICATION / STAFFING & WORKFORCE MANAGEMENT",
+      categories: ["web-applications", "management-systems"],
+      description: "A staffing platform connecting Australian businesses with talent and helping job seekers find opportunities, with services for employers and candidates.",
+      technologies: [],
+      liveUrl: "https://dtalenthub.com/"
+    },
+    {
+      title: "Miracle Assembly",
+      categoryLabel: "CHURCH / COMMUNITY WEBSITE",
+      categories: ["corporate-websites"],
+      description: "A church website for Miracle Assembly in Benin City, featuring its services, live broadcasts, teachings and community information.",
+      technologies: [],
+      liveUrl: "https://miracleassembly.org/"
     }
   ];
 
-  function makeArtwork(project, index) {
-    const artwork = document.createElement("div");
-    artwork.className = "project-art";
-    artwork.style.setProperty("--art-accent", project.accent);
-    artwork.style.setProperty("--art-glow", project.glow);
-    artwork.setAttribute("aria-hidden", "true");
+  function makeProjectPreview(project) {
+    if (!project.liveUrl) return null;
 
-    if (project.thumbnail) {
-      artwork.classList.add("has-thumbnail");
-      const image = document.createElement("img");
-      image.src = project.thumbnail;
-      image.alt = "";
-      image.loading = "lazy";
-      image.addEventListener("error", () => image.remove(), { once: true });
-      artwork.append(image);
-    }
+    const preview = document.createElement("div");
+    preview.className = "project-preview";
+    const frame = document.createElement("iframe");
+    frame.className = "project-preview-frame";
+    frame.src = project.liveUrl;
+    frame.title = `${project.title} live website preview`;
+    frame.loading = "lazy";
+    frame.referrerPolicy = "no-referrer";
+    frame.setAttribute("sandbox", "allow-forms allow-scripts allow-same-origin");
+    frame.setAttribute("aria-hidden", "true");
+    frame.tabIndex = -1;
 
+    const openPreview = document.createElement("a");
+    openPreview.className = "project-preview-link";
+    openPreview.href = project.liveUrl;
+    openPreview.target = "_blank";
+    openPreview.rel = "noopener noreferrer";
+    openPreview.setAttribute("aria-label", `Open ${project.title} website in a new tab`);
     const label = document.createElement("span");
-    label.className = "project-art-label";
-    label.textContent = `CONCEPT / 0${index + 1}`;
-    artwork.append(label);
+    label.className = "project-preview-action";
+    label.textContent = "OPEN LIVE SITE";
+    openPreview.append(label);
 
-    if (!project.thumbnail && project.artwork === "globe") {
-      const globe = document.createElement("div");
-      globe.className = "art-globe";
-      artwork.append(globe);
-    } else if (!project.thumbnail && project.artwork === "chess") {
-      const board = document.createElement("div");
-      board.className = "art-board";
-      ["♜", "♞", "♝", "♛", "♚", "♟", "♟", "♟", "♟", "♟", "♙", "♙", "♙", "♙", "♙", "♖", "♘", "♗", "♕", "♔", "♙", "♙", "♙", "♙", "♙"].forEach((piece) => {
-        const square = document.createElement("i");
-        square.textContent = piece;
-        board.append(square);
-      });
-      artwork.append(board);
-    } else if (!project.thumbnail && project.artwork === "music") {
-      const equalizer = document.createElement("div");
-      equalizer.className = "art-equalizer";
-      equalizer.innerHTML = Array.from({ length: 28 }, (_, bar) => `<i style="--bar:${8 + ((bar * 17) % 46)}%;--delay:${(bar % 7) * -0.13}s"></i>`).join("");
-      artwork.append(equalizer);
-    } else if (!project.thumbnail) {
-      artwork.insertAdjacentHTML("beforeend", `
-        <div class="project-art-visual">
-          <div class="art-window-bar"><i></i><i></i><i></i><span></span></div>
-          <div class="art-ui">
-            <div class="art-sidebar"><i></i><i></i><i></i><i></i><i></i></div>
-            <div class="art-main"><i class="art-heading"></i><div class="art-panels"><i></i><i></i><i></i></div><div class="art-chart"></div></div>
-          </div>
-        </div>`);
-    }
-
-    const artIndex = document.createElement("span");
-    artIndex.className = "project-art-index";
-    artIndex.textContent = "CJ — DIGITAL PRACTICE";
-    artwork.append(artIndex);
-    return artwork;
+    preview.append(frame, openPreview);
+    return preview;
   }
-
   function renderProjects() {
     const container = document.querySelector("#projects-grid");
     if (!container) return;
@@ -169,93 +128,72 @@
     projects.forEach((project, index) => {
       const card = document.createElement("article");
       card.className = "project-card";
-      card.dataset.category = project.category;
-      card.dataset.projectIndex = String(index);
-      card.tabIndex = 0;
-      card.setAttribute("role", "button");
-      card.setAttribute("aria-label", `View ${project.title} project details`);
-      card.append(makeArtwork(project, index));
+      card.dataset.categories = project.categories.join(" ");
+      card.style.setProperty("--project-delay", `${Math.min(index, 6) * 55}ms`);
+      const preview = makeProjectPreview(project);
+      if (preview) {
+        card.classList.add("has-preview");
+        card.append(preview);
+      }
 
-      const info = document.createElement("div");
-      info.className = "project-info";
-      const heading = document.createElement("div");
+      const meta = document.createElement("div");
+      meta.className = "project-meta";
       const category = document.createElement("span");
       category.className = "project-category";
       category.textContent = project.categoryLabel;
-      const title = document.createElement("h3");
-      title.textContent = project.title;
-      heading.append(category, title);
-      const open = document.createElement("span");
-      open.className = "project-open";
-      open.setAttribute("aria-hidden", "true");
-      open.textContent = "↗";
-      info.append(heading, open);
-      card.append(info);
+      const number = document.createElement("span");
+      number.className = "project-number";
+      number.textContent = String(index + 1).padStart(2, "0");
+      meta.append(category, number);
 
-      const tags = document.createElement("div");
+      const title = document.createElement("h3");
+      title.className = "project-title";
+      title.textContent = project.title;
+      const description = document.createElement("p");
+      description.className = "project-description";
+      description.textContent = project.description;
+      card.append(meta, title, description);
+
+      if (project.technologies.length) {
+        const tags = document.createElement("ul");
       tags.className = "project-tags";
-      project.technologies.forEach((technology) => {
-        const tag = document.createElement("span");
-        tag.textContent = technology;
-        tags.append(tag);
-      });
-      card.append(tags);
-      card.addEventListener("click", () => openProject(index));
-      card.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          openProject(index);
-        }
-      });
+        tags.setAttribute("aria-label", "Confirmed technologies");
+        project.technologies.forEach((technology) => {
+          const tag = document.createElement("li");
+          tag.textContent = technology;
+          tags.append(tag);
+        });
+        card.append(tags);
+      }
+
+      if (project.liveUrl) {
+        const link = document.createElement("a");
+        link.className = "project-live-link";
+        link.href = project.liveUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.setAttribute("aria-label", `View ${project.title} live website (opens in a new tab)`);
+        const label = document.createElement("span");
+        label.textContent = "View live website";
+        const arrow = document.createElement("span");
+        arrow.className = "project-live-arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.textContent = "↗";
+        link.append(label, arrow);
+        card.append(link);
+      }
+
       container.append(card);
     });
 
-    const count = document.querySelector('.filter-button[data-filter="all"] span');
-    if (count) count.textContent = String(projects.length).padStart(2, "0");
-  }
-
-  function openProject(index) {
-    const project = projects[index];
-    const dialog = document.querySelector("#project-dialog");
-    if (!project || !dialog) return;
-
-    dialog.querySelector(".dialog-category").textContent = project.categoryLabel;
-    dialog.querySelector("#dialog-title").textContent = project.title;
-    dialog.querySelector(".dialog-description").textContent = project.description;
-    const tags = dialog.querySelector(".dialog-tags");
-    tags.replaceChildren();
-    project.technologies.forEach((technology) => {
-      const tag = document.createElement("span");
-      tag.textContent = technology;
-      tags.append(tag);
+    document.querySelectorAll(".filter-button").forEach((button) => {
+      const filter = button.dataset.filter;
+      const count = filter === "all"
+        ? projects.length
+        : projects.filter((project) => project.categories.includes(filter)).length;
+      const countElement = button.querySelector("[data-filter-count]");
+      if (countElement) countElement.textContent = String(count).padStart(2, "0");
     });
-
-    const links = dialog.querySelector(".dialog-links");
-    links.replaceChildren();
-    [
-      { label: "Live demo ↗", url: project.demoUrl },
-      { label: "Source code ↗", url: project.sourceUrl }
-    ].forEach(({ label, url }) => {
-      if (!url) {
-        const placeholder = document.createElement("span");
-        placeholder.className = "dialog-placeholder";
-        placeholder.textContent = `${label.replace(" ↗", "")} not added yet`;
-        links.append(placeholder);
-        return;
-      }
-      const link = document.createElement("a");
-      link.href = url;
-      link.textContent = label;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      links.append(link);
-    });
-
-    const dialogArt = dialog.querySelector(".dialog-art");
-    dialogArt.style.background = `radial-gradient(circle at 50% 55%,${project.glow},transparent 60%),linear-gradient(135deg,#1c2030,#0d0e13)`;
-    if (typeof dialog.showModal === "function") dialog.showModal();
-    else dialog.setAttribute("open", "");
-    dialog.querySelector(".dialog-close").focus();
   }
 
   function initProjectFilters() {
@@ -268,7 +206,7 @@
           item.setAttribute("aria-pressed", String(active));
         });
         document.querySelectorAll(".project-card").forEach((card) => {
-          card.hidden = filter !== "all" && card.dataset.category !== filter;
+          card.hidden = filter !== "all" && !card.dataset.categories.split(" ").includes(filter);
         });
       });
     });
@@ -342,24 +280,11 @@
     });
   }
 
-  function initDialog() {
-    const dialog = document.querySelector("#project-dialog");
-    if (!dialog) return;
-    dialog.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
-    dialog.addEventListener("click", (event) => {
-      if (event.target === dialog) dialog.close();
-    });
-    dialog.addEventListener("click", (event) => {
-      if (event.target.closest(".dialog-links a")) dialog.close();
-    });
-  }
-
   function init() {
     document.querySelector("#current-year").textContent = String(new Date().getFullYear());
     renderProjects();
     initProjectFilters();
     initContact();
-    initDialog();
     const loader = document.querySelector(".page-loader");
     const hideLoader = () => {
       loader?.classList.add("is-done");
